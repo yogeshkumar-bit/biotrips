@@ -1,0 +1,55 @@
+<div class="">
+    <div class="flex-div-align-justify">
+      <h5>Update Shift</h5>
+      <i class="zmdi zmdi-close close-model" matTooltip="Close Modal" (click)="closeModal()"></i>
+    </div>
+    <br>
+  <form class="example-form" [formGroup]="form">
+  
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" placeholder="Name" formControlName="name" >
+    
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <mat-select formControlName="startTime" placeholder="Start time" required>
+          <mat-option *ngFor="let data of allTimes;let i=index" [value]="data?.label">
+            {{data?.label}}
+          </mat-option>
+        </mat-select>
+       
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-select formControlName="endTime" placeholder="End time" required>
+          <mat-option *ngFor="let data of allTimes;let i=index" [value]="data?.label">
+            {{data?.label}}
+          </mat-option>
+        </mat-select>
+    
+      </mat-form-field>    
+  
+   
+    <!-- <mat-form-field class="example-full-width">
+      <input matInput type="text" placeholder="GST Number" formControlName="gst_number" required>
+      <mat-error *ngIf="form.controls['gst_number'].errors?.required && (form.controls['gst_number']?.dirty || form.controls['gst_number']?.touched)">
+        GST is required
+      </mat-error>
+    </mat-form-field> -->
+   <div>
+    <mat-form-field class="example-full-width" *ngIf="group != 2">
+      <mat-select placeholder="Company" formControlName="company">
+          <input matInput  #search class="search-input" placeholder="Search..."/>
+        <mat-option *ngFor="let data of allCompanies | filter:search.value" [value]="data?._id">
+          {{data?.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+   </div>
+  
+    <div class="my-btn">
+      <mat-form-actions>
+          <button class="btn btn-danger"   [disabled]="form.invalid" (click)="editShift(form.value)" >Save</button>
+      </mat-form-actions>
+    </div>
+    <!-- <pre>{{form.value|json}}</pre> -->
+  </form>
+  </div>

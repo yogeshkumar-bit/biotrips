@@ -1,0 +1,108 @@
+<div class="m-content">
+  
+  <div class="flex-div-align-justify">
+    <h5>Add Company</h5>
+    <i class="zmdi zmdi-close close-model" matTooltip="Close Modal" (click)="closeModal()"></i>
+  </div>
+  <br>
+  <form class="example-form" [formGroup]="form">
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" placeholder="Company Name" formControlName="name" required>
+      <mat-error
+        *ngIf="form.controls['name'].errors?.required && (form.controls['name']?.dirty || form.controls['name']?.touched)">
+        Company Name is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput type="email" placeholder="Transport Department Email" formControlName="email" required>
+      <mat-error
+        *ngIf="form.controls['email'].errors?.required && (form.controls['email']?.dirty || form.controls['email']?.touched)">
+        Transport Department Email is required
+      </mat-error>
+      <mat-error *ngIf="!form.controls['email'].errors?.required && !form.controls['email']?.valid">
+        Email is not valid
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput type="tel" placeholder="Transport Department Phone No." formControlName="phone" minlength="10"
+        maxlength="10" required>
+      <mat-error
+        *ngIf="form.controls['phone'].errors?.required && (form.controls['phone']?.dirty || form.controls['phone']?.touched)">
+        Transport Department Phone No. is required
+      </mat-error>
+    </mat-form-field>
+    <div formGroupName="companyDetails">
+      <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Person Incharge Name" formControlName="owner_name" required>
+        <mat-error
+          *ngIf="form.controls['companyDetails']['controls']['owner_name'].errors?.required && (form.controls['companyDetails']['controls']['owner_name']?.dirty || form.controls['companyDetails']['controls']['owner_name']?.touched)">
+          Person incharge name is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="GST Number" formControlName="gst_number">
+      </mat-form-field>
+    </div>
+
+    <input type="text" class="google-place-input form-control" appGooglePlaces (select)="setAddress($event)" placeholder="Search Address...">
+    
+    <div formGroupName="address">
+      <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Address" formControlName="lineOne" required>
+        <mat-error
+          *ngIf="form.controls['address']['controls']['lineOne'].errors?.required && (form.controls['address']['controls']['lineOne']?.dirty || form.controls['address']['controls']['lineOne']?.touched)">
+          Address is required
+        </mat-error>
+      </mat-form-field>
+      <!-- <mat-form-field class="example-full-width">
+            <input matInput type="text" placeholder="Locality" formControlName="lineTwo" >
+            
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput type="text" placeholder="Area" formControlName="area" required>
+            <mat-error *ngIf="form.controls['address']['controls']['area'].errors?.required && (form.controls['address']['controls']['area']?.dirty || form.controls['address']['controls']['area']?.touched)">
+              Area is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput type="text" placeholder="City" formControlName="city" required>
+            <mat-error *ngIf="form.controls['address']['controls']['city'].errors?.required && (form.controls['address']['controls']['city']?.dirty || form.controls['address']['controls']['city']?.touched)">
+              City is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput type="text" placeholder="State" formControlName="state" required>
+            <mat-error *ngIf="form.controls['address']['controls']['state'].errors?.required && (form.controls['address']['controls']['state']?.dirty || form.controls['address']['controls']['state']?.touched)">
+              State is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+              <input matInput type="number" placeholder="Pin" formControlName="pin" required>
+              <mat-error *ngIf="form.controls['address']['controls']['pin'].errors?.required && (form.controls['address']['controls']['pin']?.dirty || form.controls['address']['controls']['pin']?.touched)">
+                Pin is required
+              </mat-error>
+            </mat-form-field> -->
+    </div>
+    <!-- <mat-form-field class="example-full-width">
+          <input matInput type="text" placeholder="GST Number" formControlName="gst_number" required>
+          <mat-error *ngIf="form.controls['gst_number'].errors?.required && (form.controls['gst_number']?.dirty || form.controls['gst_number']?.touched)">
+            GST number is required
+          </mat-error>
+        </mat-form-field> -->
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="password" placeholder="Password" formControlName="password" required>
+      <mat-error
+        *ngIf="form.controls['password'].errors?.required && (form.controls['password']?.dirty || form.controls['password']?.touched)">
+        Password is required
+      </mat-error>
+    </mat-form-field>
+    <div class="my-btn">
+      <mat-form-actions>
+        <button mat-raised-button color="primary" style="width: 100%;" [disabled]="form.invalid" (click)="addCompany(form.value)">Add Company</button>
+      </mat-form-actions>
+    </div>
+    <!-- <pre>{{form.value|json}}</pre> -->
+  </form>
+</div>

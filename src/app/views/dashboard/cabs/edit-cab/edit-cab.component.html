@@ -1,0 +1,87 @@
+<div class="m-content">
+  
+  <div class="flex-div-align-justify">
+    <h5>Edit Cab</h5>
+    <i class="zmdi zmdi-close close-model" matTooltip="Close Modal" (click)="closeModal()"></i>
+  </div>
+  <br>
+  <!-- <small style="color:red">After changing the expiry date of any document, also make sure to upload the new document image as well</small> -->
+  <!-- <br> -->
+  <br>
+  <form class="example-form" [formGroup]="form">
+
+      <mat-form-field class="example-full-width">
+          <input matInput type="text" placeholder="Name" formControlName="name" >
+         
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput type="text" placeholder="Cab Number" formControlName="cab_number" >
+          
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput type="text" placeholder="Cab Model" formControlName="cab_model" >
+        
+        </mat-form-field>
+       
+        <!-- <mat-form-field class="example-full-width ">
+          <input matInput [matDatepicker]="leadcreation2" placeholder="Insurence Exp. Date" formControlName="ins_exp_date" >
+          <mat-datepicker-toggle matSuffix [for]="leadcreation2"></mat-datepicker-toggle>
+          <mat-datepicker #leadcreation2></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="example-full-width ">
+          <input matInput [matDatepicker]="leadcreation3" placeholder="Pollution Exp. Date" formControlName="pol_exp_date" >
+          <mat-datepicker-toggle matSuffix [for]="leadcreation3"></mat-datepicker-toggle>
+          <mat-datepicker #leadcreation3></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="example-full-width ">
+          <input matInput [matDatepicker]="fitness" placeholder="Fitness Exp. Date" formControlName="fit_exp_date" >
+          <mat-datepicker-toggle matSuffix [for]="fitness"></mat-datepicker-toggle>
+          <mat-datepicker #fitness></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="example-full-width ">
+          <input matInput [matDatepicker]="permit" placeholder="Permit Exp. Date" formControlName="per_exp_date" >
+          <mat-datepicker-toggle matSuffix [for]="permit"></mat-datepicker-toggle>
+          <mat-datepicker #permit></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="example-full-width ">
+          <input matInput [matDatepicker]="taxx" placeholder="Tax Exp. Date" formControlName="tax_exp_date" >
+          <mat-datepicker-toggle matSuffix [for]="taxx"></mat-datepicker-toggle>
+          <mat-datepicker #taxx></mat-datepicker>
+        </mat-form-field> -->
+
+        <!-- <mat-form-field>
+          <input matInput [matDatepicker]="pol" placeholder="Pollution Exp. Date" formControlName="pol_exp_date">
+          <mat-datepicker-toggle matSuffix [for]="pol"></mat-datepicker-toggle>
+          <mat-datepicker #pol></mat-datepicker>
+        </mat-form-field> -->
+        
+
+        
+       <div >
+        <!-- <mat-form-field class="example-full-width" *ngIf="group != 3">
+          <mat-select placeholder="Vendor" formControlName="vendor">
+            <mat-option *ngFor="let data of allVendors" [value]="data?._id">
+              {{data?.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <!-- <mat-form-field class="example-full-width" *ngIf="group != 2">
+            <mat-select placeholder="Assign to" formControlName="company">
+                <input matInput  #companySearch class="search-input" placeholder="Search..."/>
+              <mat-option *ngFor="let data of allCompanies | filter:companySearch.value" [value]="data?._id">
+                {{data?.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+        <br>
+       </div>
+        <br>
+    <div class="my-btn">
+        <mat-form-actions>
+            <button class="btn btn-danger"   [disabled]="form.invalid" (click)="editCab(form.value)" >Save</button>
+        </mat-form-actions>
+      </div>
+    <!-- <pre>{{form.value|json}}</pre> -->
+  </form>
+</div>

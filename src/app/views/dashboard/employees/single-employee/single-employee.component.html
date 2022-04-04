@@ -1,0 +1,66 @@
+<div class="header-height">
+    <h5> <span style="border-bottom: 1px solid #9E9E9E; cursor: pointer;" routerLink="/employees">   Employee </span> &nbsp; > {{singleEmployee?.name}}</h5>
+  </div>
+  <div class="dpadding">
+    <p>
+      <!-- {{singleDriver |json}} -->
+    </p>
+    <div class="card">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="flex-justify-between">
+            <b>{{singleEmployee?.name}}</b>
+            <div>
+                <i class="zmdi zmdi-more-vert more" [matMenuTriggerFor]="menu"></i>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="editEmployee(singleEmployee)">Edit Employee</button>
+                  <button mat-menu-item (click)="deleteEmployee(singleEmployee)">Delete Employee</button>
+                </mat-menu>
+            </div>
+          </div>
+          <div class="mt-2">
+              <div class="flex-justify-between">
+                  <p>{{singleEmployee?.email}}</p>
+                  <p>{{singleEmployee?.phone}}</p>
+                </div>
+          </div>
+          <!-- <div class="cab-tab">
+            <b class="mb-2">{{singleEmployee?.name}} Details</b>
+              
+          </div> -->
+        </div>
+        <div class="col-md-4">
+          <div class="vendor-driver">
+            <div>
+              <b>Address</b>
+              <div class="vendor-card">
+                <div  *ngIf="singleEmployee?.address">
+                    <p>{{singleEmployee?.address?.lineOne}} <span *ngIf="singleEmployee?.address?.lineTwo">, </span> {{singleEmployee?.address?.lineTwo}}</p>
+                    <p>{{singleEmployee?.address?.area}} <span *ngIf="singleEmployee?.address?.city">, </span>{{singleEmployee?.address?.city}}</p>
+                    <p>{{singleEmployee?.address?.state}} <span *ngIf="singleEmployee?.address?.pin">, </span>{{singleEmployee?.address?.pin}}</p>
+                    <p>{{singleEmployee?.address?.country}}</p>
+                </div>
+                <div *ngIf="!singleEmployee?.address">
+                    <p>No address here</p>
+                </div>
+              </div>
+            </div>
+            <div>
+                <b>Company</b>
+                <div class="vendor-card">
+                    <div  *ngIf="singleEmployee?.employeeDetails?.company">
+                        <p (click)="singleCompany(singleEmployee?.employeeDetails?.company)" class="cursor">{{singleEmployee?.employeeDetails?.company?.name}} </p>
+                        <p>{{singleEmployee?.employeeDetails?.company?.email}} </p>
+                        <p>{{singleEmployee?.employeeDetails?.company?.phone}} </p>
+                    </div>
+                    <div *ngIf="!singleEmployee?.employeeDetails?.company">
+                        <p>No company here</p>
+                    </div>
+                  </div>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

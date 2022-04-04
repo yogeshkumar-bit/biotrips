@@ -1,0 +1,73 @@
+<div class="box1">
+  <div class="header-height">
+    <div class="flex-justify">
+      <h5>Rosters</h5>
+      <div class="display">
+        <form [formGroup]="form">
+          <mat-form-field class="mr-2" *ngIf="group != 3">
+            <mat-select placeholder="Vendor" (selectionChange)="vendorFilter($event)" formControlName="vendor">
+              <mat-option *ngFor="let data of allVendors" [value]="data?._id">
+                {{data?.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="mr-2" *ngIf="group != 2">
+            <mat-select placeholder="Company" (selectionChange)="companyFilter($event)" formControlName="company">
+              <mat-option *ngFor="let data of allCompanies" [value]="data?._id">
+                {{data?.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="mr-2" >
+            <mat-select placeholder="Cab Assigned" (selectionChange)="cabFilter($event)" formControlName="cabAssigned">
+              <mat-option value="true">
+                Yes
+              </mat-option>
+              <mat-option value="false">
+                No
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <i class="zmdi zmdi-close mr-4 ml-2 close-icon" (click)="clearSelection()" *ngIf="vendorSelected"></i>
+          <mat-form-field class="mr-4">
+            <input matInput type="text" placeholder="Search" (keyup)="search($event)" formControlName="search">
+          </mat-form-field>
+        </form>
+        <span class="border">
+          <i (click)="table()" class="zmdi zmdi-plus-square spanew" [ngClass]="{'active':viewTable == true}"></i>
+          <i (click)="card()" class="zmdi zmdi-view-dashboard spanew" [ngClass]="{'active':viewTable == false}"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="dpadding">
+    <div class="card">
+      <button class="btn btn-primary publish" (click)="assignVendorAll('all')" *ngIf="selectedStatus == 'draft'">Publish All</button>
+      <!-- <img src="../../../../assets/export.png" class="export cursor" (click)="export()" matTooltip="Export" /> -->
+      <button class="btn btn-primary export" (click)="export()">Export</button>
+      <mat-tab-group (selectedTabChange)="changeTab($event)">
+        <mat-tab label="Draft" *ngIf="group != 3">
+          <app-route-table [allRoutes]="allRoutes" (editRoute)="editRoute($event)" (deleteRoute)="deleteRoute($event)"
+            (singleRoute)="singleRoute($event)" [viewTable]="viewTable" (removeEmp)="removeEmp($event)" (addEmp)="addEmp($event)" (assignRouteVendor)="assignRouteVendor($event)" status="draft" [page]="paginator?.pageIndex"></app-route-table>
+        </mat-tab>
+        <mat-tab label="Published">
+          <app-route-table [allRoutes]="allRoutes" (editRoute)="editRoute($event)" (deleteRoute)="deleteRoute($event)"
+            (singleRoute)="singleRoute($event)" [viewTable]="viewTable"  (removeEmp)="removeEmp($event)" (addEmp)="addEmp($event)" (assignRouteVendor)="assignRouteVendor($event)" (assignRouteCab)="assignRouteCab($event)" status="published" [page]="paginator?.pageIndex"></app-route-table>
+
+        </mat-tab>
+        <!-- <mat-tab label="Live" *ngIf="group == 1">
+          <app-route-table [allRoutes]="allRoutes" (editRoute)="editRoute($event)" (deleteRoute)="deleteRoute($event)"
+            (singleRoute)="singleRoute($event)" [viewTable]="viewTable"></app-route-table>
+
+        </mat-tab> -->
+      </mat-tab-group>
+    </div>
+  </div>
+
+  <mat-paginator #paginator [length]="1000" [pageSize]="20" [pageSizeOptions]="[5, 10, 20]" (page)="next($event)">
+  </mat-paginator>
+  <div class="create-direct" (click)="addRoute()" *ngIf="group != 3" >
+    <i class="zmdi zmdi-plus-circle"></i>
+  </div>
+</div>

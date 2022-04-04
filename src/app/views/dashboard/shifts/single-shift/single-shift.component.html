@@ -1,0 +1,53 @@
+
+<div class="header-height">
+    <h5>Shift > {{singleShift?.name}}</h5>
+  </div>
+  <div class="dpadding">
+    <p>
+    </p>
+    <div class="card">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="flex-justify-between">
+            <b>{{singleShift?.name}}</b>
+            <div>
+                <i class="zmdi zmdi-more-vert more" [matMenuTriggerFor]="menu"></i>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="editShift(singleShift)">Edit Shift</button>
+                  <button mat-menu-item (click)="deleteShift(singleShift)">Delete Shift</button>
+                </mat-menu>
+            </div>
+          </div>
+          <div class="mt-2">
+              <div class="flex-justify-between">
+                  <p><b>Start Time </b>- {{singleShift?.startTime}}</p>
+                </div>
+          </div>
+          <div class="mt-2">
+              <div class="flex-justify-between">
+                  <p><b>End Time </b>- {{singleShift?.endTime}}</p>
+                </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="vendor-driver">
+           
+            <div>
+                <b>Company</b>
+                <div class="vendor-card">
+                    <div  *ngIf="singleShift?.company">
+                        <p (click)="singleCompany(singleShift?.company)" class="cursor">{{singleShift?.company?.name}} </p>
+                        <p>{{singleShift?.company?.email}} </p>
+                        <p>{{singleShift?.company?.phone}} </p>
+                    </div>
+                    <div *ngIf="!singleShift?.company">
+                        <p>No company here</p>
+                    </div>
+                  </div>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

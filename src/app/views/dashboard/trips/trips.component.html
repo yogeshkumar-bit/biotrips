@@ -1,0 +1,99 @@
+<div class="header-height">
+  <div class="flex-justify">
+    <h5>Trip Sheet</h5>
+    <div class="display">
+      <form [formGroup]="form">
+        <ejs-daterangepicker formControlName="date" placeholder='Start - End Date' format='yyyy-MM-dd' class="form-element" (change)="dateFilter($event)" *ngIf="tabSelected == 2">
+        </ejs-daterangepicker>        
+        <!-- <i class="zmdi zmdi-close ml-2" (click)="clearSelection()" *ngIf="dateSelected"></i> -->
+        <mat-form-field *ngIf="tabSelected != 2">
+            <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="tripDate" placeholder="Choose a date" (dateChange)="onDateChange($event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="ml-2" *ngIf="(group != 3 && tabSelected == 2)">
+            <mat-select placeholder="Vendor" (selectionChange)="vendorFilter($event)" formControlName="vendor">
+              <mat-option *ngFor="let data of allVendors" [value]="data?._id">
+                {{data?.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="ml-2" *ngIf="(group != 2 && tabSelected == 2)">
+              <mat-select placeholder="Company" (selectionChange)="companyFilter($event)" formControlName="company">
+                <mat-option *ngFor="let data of allCompanies" [value]="data?._id">
+                  {{data?.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="ml-2" *ngIf="(tabSelected == 2)">
+              <mat-select placeholder="Driver" (selectionChange)="driverFilter($event)" formControlName="driver">
+                <mat-option *ngFor="let data of allDrivers" [value]="data?._id">
+                  {{data?.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          <i class="zmdi zmdi-close ml-3 mr-2" (click)="clearSelection()" *ngIf="dateSelected"></i>
+        <!-- <i class="zmdi zmdi-close ml-3" (click)="clear()" *ngIf="singleDate"></i> -->
+        <mat-form-field class="ml-2">
+          <input matInput type="text" placeholder="Search" (keyup)="search($event)" formControlName="search">
+        </mat-form-field>
+      </form>
+    </div>
+    <!-- <button class="btn btn-primary" (click)="mapAll()">View all route</button> -->
+  </div>
+</div>
+<div class="dpadding">
+  <!-- <div class="row">
+      <div *ngFor="let data of allTrips" class="col-md-4 col-sm-6 col-xs-12 margin-b">
+        <div class="card">
+          <div  class="user-name flex-justify-between">
+            <b (click)="singleTrip(data)">{{data?.name}}</b>
+            <div>
+              <i class="zmdi zmdi-more-vert" [matMenuTriggerFor]="menu"></i>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editTrip(data)">Edit Trip</button>
+                <button mat-menu-item (click)="deleteTrip(data)">Delete Trip</button>
+              </mat-menu>
+            </div>
+          </div>
+          <div>
+            <div class="flex-justify-between">
+              <p>{{data?.email}}</p>
+              <p>{{data?.phone}}</p>
+            </div>
+            <div>
+              <p *ngIf="data?.employeeDetails?.company">Company - {{data?.employeeDetails?.company?.name}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  <div class="card">
+      <button class="btn btn-primary export" (click)="export()" >Export</button>
+    <mat-tab-group (selectedTabChange)="changeTab($event)">
+      <!-- <mat-tab label="All">
+        <app-history [trips]="allTrips" ></app-history>
+      </mat-tab> -->
+      <mat-tab label="Login">
+        <app-history [trips]="loginTrips" forTrip="today" tripType="login" (assignCab)="assignCab($event)"></app-history>
+
+      </mat-tab>
+      <mat-tab label="Logout">
+        <app-history [trips]="logoutTrips" forTrip="today" tripType="logout" (assignCab)="assignCab($event)"></app-history>
+
+      </mat-tab>
+      <mat-tab label="History">
+        <app-history [trips]="historyTrips" forTrip="history"></app-history>
+        
+      </mat-tab>
+    </mat-tab-group>
+
+  </div>
+
+  <mat-paginator #paginator [length]="1000" [pageSize]="20" [pageSizeOptions]="[5, 10, 20]" (page)="next($event)" [ngClass]="{'remove':tabSelected != 2}">
+  </mat-paginator>
+</div>
+<!--   
+  <div class="create-direct" (click)="addEmployee()">
+    <i class="zmdi zmdi-plus-circle"></i>
+  </div> -->

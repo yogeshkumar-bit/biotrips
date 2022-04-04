@@ -1,0 +1,43 @@
+.display{
+    display:flex;
+    align-items: center;
+    // i{
+    //     margin-left: 15px;
+    // }
+}
+.display-new{
+    display:flex;
+    align-items: center;
+    i{
+        margin-left: 15px;
+    }
+}
+
+.tick-div{
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    left: 8px;
+    top: -8px;
+    i{
+        font-size: 25px;
+    }
+
+    .check-no{
+        // color: #80808038;
+        opacity: 0;
+    }
+    .check{
+        // color: #536E92 ;
+    }
+}
+
+.gray-btn{
+    background-color: #80808061;
+    color: white
+}
+
+.btn-primary{
+    background-color: #007bff !important;
+}

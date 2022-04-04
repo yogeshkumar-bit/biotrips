@@ -1,0 +1,25 @@
+.my-card{
+    max-width: 480px;
+    align-self: center;
+    padding: 20px 20px 10% 20px;
+    margin-bottom: 0;
+}
+.login{
+    // justify-content: center;
+    display: flex;
+    // align-items: center;
+    padding:5%;
+    height:100vh;
+    align-items: center;
+    justify-content: center;
+// background-image:url("../../../../assets/login-background.jpg");
+background-size: cover;
+}
+
+.my-btn{
+    margin-top: 10px;
+    .forgot{
+        color: blue;
+        cursor: pointer;
+    }
+}

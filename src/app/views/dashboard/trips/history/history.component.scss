@@ -1,0 +1,39 @@
+.green-td{
+    .green-span{
+        display: flex;
+    align-items: center;
+    justify-content: space-between;
+    }
+    
+    i{
+        color: red;
+    }
+}
+
+.cab-div{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    // justify-content: space-between;
+    .change{
+        opacity:0;
+        transition:0.5s;
+        margin-left: 50px;
+    }
+}
+
+.cab-div:hover{
+    .change{
+        opacity: 1;
+    }
+}
+
+
+
+.pickup{
+    color:green;
+}
+.drop{
+    color:blue
+}
+

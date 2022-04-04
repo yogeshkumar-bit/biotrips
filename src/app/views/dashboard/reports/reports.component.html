@@ -1,0 +1,28 @@
+<div class="header-height">
+  <div class="flex-justify">
+    <h5>Reports</h5>
+    <form [formGroup]="form" class="flex-align">
+      <ejs-daterangepicker formControlName="date" placeholder='Start - End Date' class="form-element"
+        (change)="dateFilter($event)">
+      </ejs-daterangepicker>
+      <i class="zmdi zmdi-close ml-3 " (click)="clearSelection()" *ngIf="form?.value?.date"></i>
+      <button class="btn btn-primary ml-3" (click)="export()">Export</button>
+    </form>
+  </div>
+
+</div>
+<div class="dpadding" *ngIf="reportData">
+  <div class="" class="card table-responsive">
+    <table class="table">
+      <thead>
+        <th *ngFor="let data of displayedColumns">{{data}}</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of reportData">
+          <td *ngFor="let key of displayedColumns">{{data[key]}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

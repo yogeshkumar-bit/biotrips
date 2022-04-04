@@ -1,0 +1,41 @@
+<div>
+  <h5>Add Zone</h5>
+  <br>
+  <div>
+    <form [formGroup]="form">
+      <div formArrayName="zone">
+
+        <div *ngFor="let comp of form['controls'].zone['controls']; let i=index" class="">
+          <div [formGroupName]="i">
+            <div class="flex-justify">
+              <p>Zone {{i+1}}</p>
+              <i class="zmdi zmdi-close" (click)="deleteZone(i)" *ngIf="i>0"></i>
+            </div>
+            <mat-form-field class="example-full-width">
+              <input matInput type="text" placeholder="Zone Name" formControlName="name" required>
+              <mat-error
+                *ngIf="comp.controls['name'].errors?.required && (comp.controls['name']?.dirty || comp.controls['name']?.touched)">
+                Name is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput type="number" placeholder="Slab Rate" formControlName="amount" required>
+              <mat-error
+                *ngIf="comp.controls['amount'].errors?.required && (comp.controls['amount']?.dirty || comp.controls['amount']?.touched)">
+                Slab Rate is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="text-right">
+          <span class="sm-bold cursor" (click)="addMore()">Add More</span>
+        </div>
+    </form>
+    <div class="my-btn">
+        <mat-form-actions>
+          <button class="btn btn-danger" [disabled]="form.invalid" (click)="addZone(form.value)">Save</button>
+        </mat-form-actions>
+      </div>
+  </div>
+</div>

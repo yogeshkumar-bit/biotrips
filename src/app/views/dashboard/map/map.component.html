@@ -1,0 +1,7 @@
+<div class="map">
+    <div #map id="map" ></div>
+    <div class="err-msg">
+      <span *ngIf="updatedAt">{{updatedAt |date:'MMM, d, y, hh:mm a'}}, {{updatedAt | dateFormat}}</span>
+      <span *ngIf="errorMsg">{{errorMsg}}</span>
+    </div>
+</div>

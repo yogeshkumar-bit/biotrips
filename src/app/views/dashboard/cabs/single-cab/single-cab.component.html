@@ -1,0 +1,438 @@
+<div class="header-height">
+  <div class="flex-justify">
+    <h5> <span style="border-bottom: 1px solid #9E9E9E; cursor: pointer;" routerLink="/cabs"> Cab </span> &nbsp; > {{singleCab?.name}}</h5>
+    <div>
+      <button (click)="documentPreview('all')" class="btn btn-primary mx-2">Document Preview</button>
+      <button (click)="downloadAll('all')" class="btn btn-primary">Download Documents</button>
+    </div>
+  </div>
+</div>
+<div class="dpadding">
+  <p>
+    <!-- {{singleCab |json}} -->
+  </p>
+  <div class="card">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="flex-justify-between">
+          <b>{{singleCab?.name}}</b>
+          <div>
+            <i class="zmdi zmdi-more-vert more" [matMenuTriggerFor]="cabmenu" *ngIf="group !=2"></i>
+            <mat-menu #cabmenu="matMenu">
+              <button mat-menu-item (click)="editCab(singleCab)">Edit Cab</button>
+              <button mat-menu-item (click)="deleteCab(singleCab)">Delete Cab</button>
+              <!-- <button mat-menu-item (click)="assignDriver(singleCab,'edit')"
+                *ngIf="singleCab?.assigned_current_driver">Change Driver</button>
+              <button mat-menu-item (click)="assignDriver(singleCab,'add')"
+                *ngIf="!singleCab?.assigned_current_driver">Assign Driver</button> -->
+            </mat-menu>
+          </div>
+        </div>
+        <div class="mt-2">
+          <div class="flex-justify-between">
+            <p>{{singleCab?.cab_number}}</p>
+            <p>{{singleCab?.cab_model}}</p>
+          </div>
+        </div>
+        <div class="cab-tab pb-0">
+          <b class="mb-2">Cab's Document</b>
+          <mat-tab-group>
+            <mat-tab label="RC">
+              <div class="tab-content">
+                <div>
+                  <img [src]="singleCab?.cab_rc?.image?singleCab?.cab_rc?.image:'../../../assets/placeholder.jpg'"
+                    class="img-tab" (click)="documentPreview('rc')" />
+                  <p *ngIf="singleCab?.cab_rc?.exp_date">
+                    Exp. date - {{singleCab?.cab_rc?.exp_date | date:'MMM, d, y, hh:mm a'}}
+                  </p>
+                  <p *ngIf="singleCab?.cab_rc?.image">
+                      Status: {{singleCab?.cab_rc?.status?singleCab?.cab_rc?.status:'Verified'}}
+                        <span *ngIf="(singleCab?.cab_rc?.status=='unverified' && group != 2)"
+                          style="text-decoration:underline;color:blue;margin-left:30px;cursor: pointer;">
+                          <span (click)="verifyDoc('cab_rc','verified')">Verify</span>
+                          <span class="ml-3" (click)="verifyDoc('cab_rc','rejected')">Reject</span>
+                        </span>
+                      </p>
+                </div>
+                <div class="doc-btn" *ngIf="group !=2">
+                  <i class="zmdi zmdi-edit" (click)="docEdit('rc',singleCab)" *ngIf="singleCab?.cab_rc?.image"></i>
+                  <i class="zmdi zmdi-cloud-upload" (click)="docEdit('rc',singleCab)" *ngIf="!singleCab?.cab_rc?.image"></i>
+                  <i class="zmdi zmdi-cloud-download" *ngIf="singleCab?.cab_rc?.image"
+                    (click)="imageDownload(singleCab?.cab_rc?.image,'rc')"></i>
+                    <!-- <a [href]="singleCab?.cab_rc?.image" download="imagename.png"><button>don</button></a> -->
+                </div>
+              </div>
+            </mat-tab>
+            <mat-tab label="Insurance">
+              <div class="tab-content">
+                <div>
+                  <img
+                    [src]="singleCab?.cab_insurance?.image?singleCab?.cab_insurance?.image:'../../../assets/placeholder.jpg'"
+                    class="img-tab" (click)="documentPreview('insurance')" />
+                  <p *ngIf="singleCab?.cab_insurance?.exp_date">
+                    Exp. date - {{singleCab?.cab_insurance?.exp_date | date:'MMM, d, y, hh:mm a'}}
+                  </p>
+                  <p *ngIf="singleCab?.cab_insurance?.image">
+                      Status: {{singleCab?.cab_insurance?.status?singleCab?.cab_insurance?.status:'Verified'}}
+                        <span *ngIf="(singleCab?.cab_insurance?.status=='unverified' && group != 2)"
+                          style="text-decoration:underline;color:blue;margin-left:30px;cursor: pointer;">
+                          <span (click)="verifyDoc('cab_insurance','verified')">Verify</span>
+                          <span class="ml-3" (click)="verifyDoc('cab_insurance','rejected')">Reject</span>
+                        </span>
+                      </p>
+                </div>
+                <div>
+                  <div class="doc-btn" *ngIf="group !=2">
+                    <!-- <button class="btn btn-primary" (click)="docEdit('ins',singleCab)"><span
+                        *ngIf="singleCab?.cab_insurance">Update document</span> <span
+                        *ngIf="!singleCab?.cab_insurance">Add document</span></button>
+                    <br>
+                    <button class="btn btn-primary" *ngIf="singleCab?.cab_insurance?.image"
+                      (click)="imageDownload(singleCab?.cab_insurance?.image,'insurance')">Download document </button> -->
+                      <i class="zmdi zmdi-edit" (click)="docEdit('ins',singleCab)" *ngIf="singleCab?.cab_insurance?.image"></i>
+                      <i class="zmdi zmdi-cloud-upload" (click)="docEdit('ins',singleCab)" *ngIf="!singleCab?.cab_insurance?.image"></i>
+                      <a [href]="singleCab?.cab_insurance?.image" download>
+                        <i class="zmdi zmdi-cloud-download" *ngIf="singleCab?.cab_insurance?.image"
+                        (click)="imageDownload(singleCab?.cab_insurance?.image,'insurance')"></i></a>
+                    </div>
+                </div>
+              </div>
+            </mat-tab>
+            <mat-tab label="Pollution">
+              <div class="tab-content">
+                <div>
+                  <img
+                    [src]="singleCab?.cab_pollution_crt?.image?singleCab?.cab_pollution_crt?.image:'../../../assets/placeholder.jpg'"
+                    class="img-tab" (click)="documentPreview('pollution')" />
+                  <p *ngIf="singleCab?.cab_pollution_crt?.exp_date">
+                    Exp. date - {{singleCab?.cab_pollution_crt?.exp_date | date:'MMM, d, y, hh:mm a'}}
+                  </p>
+                  <p *ngIf="singleCab?.cab_pollution_crt?.image">
+                      Status: {{singleCab?.cab_pollution_crt?.status?singleCab?.cab_pollution_crt?.status:'Verified'}}
+                        <span *ngIf="(singleCab?.cab_pollution_crt?.status=='unverified' && group != 2)"
+                          style="text-decoration:underline;color:blue;margin-left:30px;cursor: pointer;">
+                          <span (click)="verifyDoc('cab_pollution_crt','verified')">Verify</span>
+                          <span class="ml-3" (click)="verifyDoc('cab_pollution_crt','rejected')">Reject</span>
+                        </span>
+                      </p>
+                </div>
+                <div>
+                  <div class="doc-btn" *ngIf="group !=2">
+                    <!-- <button class="btn btn-primary" (click)="docEdit('pol',singleCab)"><span
+                        *ngIf="singleCab?.cab_pollution_crt">Update document</span> <span
+                        *ngIf="!singleCab?.cab_pollution_crt">Add document</span></button>
+                    <br>
+                    <button class="btn btn-primary" *ngIf="singleCab?.cab_pollution_crt?.image"
+                      (click)="imageDownload(singleCab?.cab_pollution_crt?.image,'pollution')">Download document
+                    </button> -->
+                    <i class="zmdi zmdi-edit" (click)="docEdit('pol',singleCab)" *ngIf="singleCab?.cab_pollution_crt?.image"></i>
+                  <i class="zmdi zmdi-cloud-upload" (click)="docEdit('pol',singleCab)" *ngIf="!singleCab?.cab_pollution_crt?.image"></i>
+                  <i class="zmdi zmdi-cloud-download" *ngIf="singleCab?.cab_pollution_crt?.image"
+                    (click)="imageDownload(singleCab?.cab_pollution_crt?.image,'pollution')"></i>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+            <mat-tab label="Fitness">
+              <div class="tab-content">
+                <div>
+                  <img [src]="singleCab?.fitness?.image?singleCab?.fitness?.image:'../../../assets/placeholder.jpg'"
+                    class="img-tab" (click)="documentPreview('fitness')" />
+                  <p *ngIf="singleCab?.fitness?.exp_date">
+                    Exp. date - {{singleCab?.fitness?.exp_date | date:'MMM, d, y, hh:mm a'}}
+                  </p>
+                  <p *ngIf="singleCab?.fitness?.image">
+                      Status: {{singleCab?.fitness?.status?singleCab?.fitness?.status:'Verified'}}
+                        <span *ngIf="(singleCab?.fitness?.status=='unverified' && group != 2)"
+                          style="text-decoration:underline;color:blue;margin-left:30px;cursor: pointer;">
+                          <span (click)="verifyDoc('fitness','verified')">Verify</span>
+                          <span class="ml-3" (click)="verifyDoc('fitness','rejected')">Reject</span>
+                        </span>
+                      </p>
+                </div>
+                <div>
+                  <div class="doc-btn" *ngIf="group !=2">
+                    <!-- <button class="btn btn-primary" (click)="docEdit('fit',singleCab)"><span
+                        *ngIf="singleCab?.fitness">Update document</span> <span *ngIf="!singleCab?.fitness">Add
+                        document</span></button>
+                    <br>
+                    <button class="btn btn-primary" *ngIf="singleCab?.fitness?.image"
+                      (click)="imageDownload(singleCab?.fitness?.image,'fitness')">Download document </button> -->
+                      <i class="zmdi zmdi-edit" (click)="docEdit('fit',singleCab)" *ngIf="singleCab?.fitness?.image"></i>
+                  <i class="zmdi zmdi-cloud-upload" (click)="docEdit('fit',singleCab)" *ngIf="!singleCab?.fitness?.image"></i>
+                  <i class="zmdi zmdi-cloud-download" *ngIf="singleCab?.fitness?.image"
+                    (click)="imageDownload(singleCab?.fitness?.image,'fitness')"></i>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+            <mat-tab label="Permit">
+              <div class="tab-content">
+                <div>
+                  <img [src]="singleCab?.permit?.image?singleCab?.permit?.image:'../../../assets/placeholder.jpg'"
+                    class="img-tab" (click)="documentPreview('permit')" />
+                  <p *ngIf="singleCab?.permit?.exp_date">
+                    Exp. date - {{singleCab?.permit?.exp_date | date:'MMM, d, y, hh:mm a'}}
+                  </p>
+                  <p *ngIf="singleCab?.permit?.image">
+                      Status: {{singleCab?.permit?.status?singleCab?.permit?.status:'Verified'}}
+                        <span *ngIf="(singleCab?.permit?.status=='unverified' && group != 2)"
+                          style="text-decoration:underline;color:blue;margin-left:30px;cursor: pointer;">
+                          <span (click)="verifyDoc('permit','verified')">Verify</span>
+                          <span class="ml-3" (click)="verifyDoc('permit','rejected')">Reject</span>
+                        </span>
+                      </p>
+                </div>
+                <div>
+                  <div class="doc-btn" *ngIf="group !=2">
+                    <!-- <button class="btn btn-primary" (click)="docEdit('per',singleCab)"><span
+                        *ngIf="singleCab?.permit">Update document</span> <span *ngIf="!singleCab?.permit">Add
+                        document</span></button>
+                    <br>
+                    <button class="btn btn-primary" *ngIf="singleCab?.permit?.image"
+                      (click)="imageDownload(singleCab?.permit?.image,'permit')">Download document </button> -->
+                      <i class="zmdi zmdi-edit" (click)="docEdit('per',singleCab)" *ngIf="singleCab?.permit?.image"></i>
+                  <i class="zmdi zmdi-cloud-upload" (click)="docEdit('per',singleCab)" *ngIf="!singleCab?.permit?.image"></i>
+                  <i class="zmdi zmdi-cloud-download" *ngIf="singleCab?.permit?.image"
+                    (click)="imageDownload(singleCab?.permit?.image,'permit')"></i>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+            <mat-tab label="Tax">
+              <div class="tab-content">
+                <div>
+                  <img [src]="singleCab?.tax?.image?singleCab?.tax?.image:'../../../assets/placeholder.jpg'"
+                    class="img-tab" (click)="documentPreview('tax')" />
+                  <p *ngIf="singleCab?.tax?.exp_date">
+                    Exp. date - {{singleCab?.tax?.exp_date | date:'MMM, d, y, hh:mm a'}}
+                  </p>
+                    <p *ngIf="singleCab?.tax?.image">
+                      Status: {{singleCab?.tax?.status?singleCab?.tax?.status:'Verified'}}
+                        <span *ngIf="(singleCab?.tax?.status=='unverified' && group != 2)"
+                          style="text-decoration:underline;color:blue;margin-left:30px;cursor: pointer;">
+                          <span (click)="verifyDoc('tax','verified')">Verify</span>
+                          <span class="ml-3" (click)="verifyDoc('tax','rejected')">Reject</span>
+                        </span>
+                      </p>
+                  </div>
+                <div>
+                  <div class="doc-btn" *ngIf="group !=2">
+                    <!-- <button class="btn btn-primary" (click)="docEdit('tax',singleCab)"><span
+                        *ngIf="singleCab?.tax">Update
+                        document</span> <span *ngIf="!singleCab?.tax">Add document</span></button>
+                    <br>
+                    <i class="zmdi zmdi-download" *ngIf="singleCab?.tax?.image"
+                      (click)="imageDownload(singleCab?.tax?.image,'tax')"> </i> -->
+                      <i class="zmdi zmdi-edit" (click)="docEdit('tax',singleCab)" *ngIf="singleCab?.tax?.image"></i>
+                  <i class="zmdi zmdi-cloud-upload" (click)="docEdit('tax',singleCab)" *ngIf="!singleCab?.tax?.image"></i>
+                  <i class="zmdi zmdi-cloud-download" *ngIf="singleCab?.tax?.image"
+                    (click)="imageDownload(singleCab?.tax?.image,'tax')"></i>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+
+          </mat-tab-group>
+        </div>
+        <div>
+          <div class="mt-2"><b>Companies</b></div>
+            <div class="">
+                <div class="row" *ngIf="singleCab?.assignedTo?.length > 0;else no_company">
+                        <div class="col-md-6 col-sm-12 col-xs-12"
+                        *ngFor="let data of singleCab?.assignedTo">
+                        <div class="vendor-card">
+                            <b (click)="singleCompany(data)" class="cursor">{{data?.name}}</b>
+                            <div class="flex-justify-between">
+                                <p>{{data?.email}}</p>
+                                <p>{{data?.phone}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #no_company>There are no comapnies</ng-template>
+            </div>
+        </div>
+        <div class="address mt-3" *ngIf="group !=2">
+            <div class="flex-justify">
+                <p>
+                    <b class="mb-2">Payments</b>
+                </p>
+              <p (click)="addPayment(singleCab)" class="sm-bold cursor" *ngIf="group !=2">Add Payment</p>
+            </div>
+            <div class="table-responsive">
+                <table mat-table [dataSource]="singleCab?.payments" multiTemplateDataRows
+                class="mat-elevation-z8">
+                
+                <ng-container matColumnDef="trips">
+                  <th mat-header-cell *matHeaderCellDef> Number of Trips </th>
+                  <td mat-cell *matCellDef="let element"> 
+                  <div class="display">
+                      <i class="zmdi zmdi-caret-down"></i>
+                    <p class="ml-3">
+                        {{element?.number_of_trips}}
+                    </p>
+                  </div>  
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="earning">
+                  <th mat-header-cell *matHeaderCellDef> Total Earnings </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.totalEarnings}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="deduction">
+                  <th mat-header-cell *matHeaderCellDef> Total Deductions </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.totalDeductions}} </td>
+                </ng-container>
+                <ng-container matColumnDef="netAmount">
+                  <th mat-header-cell *matHeaderCellDef> Net Amount </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.netAmount}} </td>
+                </ng-container>
+                <ng-container matColumnDef="tds">
+                    <th mat-header-cell *matHeaderCellDef> TDS </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.tds}}% </td>
+                  </ng-container>
+                  <ng-container matColumnDef="month">
+                    <th mat-header-cell *matHeaderCellDef> Month </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.month}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="year">
+                    <th mat-header-cell *matHeaderCellDef> Year </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.year}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="total">
+                      <th mat-header-cell *matHeaderCellDef> Total Amount </th>
+                      <td mat-cell *matCellDef="let element"> {{element?.totalAmount}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="delete">
+                        <th mat-header-cell *matHeaderCellDef> </th>
+                        <td mat-cell *matCellDef="let element"> 
+                          <i class="zmdi zmdi-edit" (click)="editPayment(element)"></i>
+                          <i class="zmdi zmdi-delete ml-2" (click)="deletePayment(element)"></i>
+                        </td>
+                      </ng-container>
+      
+      
+                <ng-container matColumnDef="expandedDetail">
+                  <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                    <div class="example-element-detail heading-main"
+                      [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                      <div class="expand-padding">
+                       <div class="row">
+                        <div class="col-md-7">
+                          <div class="vendor-card">
+                              <div class="flex-justify-around mb-2">
+                                <div class="first-div"><b>Company</b></div>
+                                <div class="second-div"><b>Trips</b></div>
+                                <div class="third-div"><b>Amount</b></div>
+                                <div class="third-div"><b>Description</b></div>
+                              </div>
+                            <div class="flex-justify-around" *ngFor="let data of element?.earnings">
+                              <div class="first-div">
+                                {{data?.company?.name}}
+                              </div>
+                              <div class="second-div">
+                                  {{data?.trips}}
+                              </div>
+                              <div class="third-div">
+                                  {{data?.amount}}
+                                </div>
+                                <div class="third-div">
+                                  {{data?.description}}
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-5">
+                          <div class="vendor-card">
+                              <div class="flex-justify mb-2">
+                                  <div class="first-div"><b>Deduction For</b></div>
+                                  <div class="second-div"><b>Amount</b></div>
+                                </div>
+                              <div class="flex-justify" *ngFor="let data of element?.deductions">
+                                  <div class="first-div">
+                                    {{data?.deductionFor}}
+                                    </div>
+                                    <div class="second-div">
+                                      {{data?.amount}}
+                                    </div>
+                                </div>
+                          </div>
+                          </div>
+                       </div>
+                      </div>
+                    </div>
+                  </td>
+                </ng-container>
+      
+      
+      
+      
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+                  [class.example-expanded-row]="expandedElement === element"
+                  (click)="expandedElement = expandedElement === element ? null : element">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+              </table>
+            </div>
+          </div>
+      </div>
+      <div class="col-md-4">
+        <div class="vendor-driver">
+          <div>
+            <b>Vendor</b>
+            <div class="vendor-card">
+              <div *ngIf="singleCab?.vendor; else no_vendor">
+                <p (click)="singleVendor(singleCab?.vendor)" class="cursor">{{singleCab?.vendor?.name}}</p>
+                <p>{{singleCab?.vendor?.email}}</p>
+                <p>{{singleCab?.vendor?.phone}}</p>
+              </div>
+              <ng-template #no_vendor>There are no vendors</ng-template>
+            </div>
+          </div>
+          <!-- <div>
+            <b>Company</b>
+            <div class="vendor-card">
+              <div *ngIf="singleCab?.assignedTo; else no_company">
+                <p (click)="singleCompany(singleCab?.assignedTo)" class="cursor">{{singleCab?.assignedTo?.name}}</p>
+                <p>{{singleCab?.assignedTo?.email}}</p>
+                <p>{{singleCab?.assignedTo?.phone}}</p>
+              </div>
+              <ng-template #no_company>There are no company</ng-template>
+            </div>
+          </div> -->
+          <div>
+            <b>Assigned Driver</b>
+            <div class="vendor-card">
+              <!-- <div class="text-right">
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="assignDriver(singleCab,'edit')"
+                    *ngIf="singleCab?.assigned_current_driver">Change Driver</button>
+                  <button mat-menu-item (click)="assignDriver(singleCab,'add')"
+                    *ngIf="!singleCab?.assigned_current_driver">Assign Driver</button>
+                </mat-menu>
+              </div> -->
+              <div *ngIf="singleCab?.assigned_current_driver">
+                <div class="flex-div-align-justify">
+                  <p (click)="singleDriver(singleCab?.assigned_current_driver)" class="cursor">
+                    {{singleCab?.assigned_current_driver?.name}}</p>
+                  <!-- <i class="zmdi zmdi-more-vert" [matMenuTriggerFor]="menu"></i> -->
+                </div>
+                <p>{{singleCab?.assigned_current_driver?.email}}</p>
+                <p>{{singleCab?.assigned_current_driver?.phone}}</p>
+              </div>
+              <div *ngIf="!singleCab?.assigned_current_driver">
+                <div class="flex-div-align-justify">
+                  <p>Driver is not assigned yet</p>
+                  <!-- <i class="zmdi zmdi-more-vert" [matMenuTriggerFor]="menu"></i> -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

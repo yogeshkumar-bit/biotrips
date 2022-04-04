@@ -1,0 +1,52 @@
+<mat-drawer-container class="example-container cab-nav">
+  <mat-drawer #drawer position="end" [disableClose]="mobileQuery.matches ? 'false' : 'true'" opened="true"
+    [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+    class="side-mat-drawer mat-width">
+    <div class="padding">
+      <div class="map-for mb-4">
+        <div class="select-cab" (click)="showAllCabs()" [ngClass]="{'selectAll':(mapFor=='all' && selectedIndex  == -1)}">All Cabs</div>
+        <div class="" (click)="selectedCabs()" [ngClass]="{'selectAll':(mapFor=='selected' && selectedIndex  == -1)}">Selected Cabs</div>
+      </div>
+      <div class="mt-2 mb-2">
+        <mat-radio-group aria-label="Select an option" (change)="isonline($event)" [(ngModel)]="selectedCab">
+          <mat-radio-button value="all">All <span *ngIf="selectedCab == 'all'">({{allCabs?.length}})</span></mat-radio-button>
+          <mat-radio-button value="online">Online <span *ngIf="selectedCab == 'online'">({{allCabs?.length}})</span></mat-radio-button>
+          <!-- <mat-radio-button value="offline">Offline <span *ngIf="selectedCab == 'offline'">({{allCabs?.length}})</span></mat-radio-button> -->
+        </mat-radio-group>
+      </div>
+      <div class="mb-3">
+          <input placeholder="Search" class="search" (keyup)="search($event)"/>
+      </div>
+      <div *ngIf="allCabs?.length >0;else no_cab">
+          <div *ngFor="let cab of allCabs; let i= index" (click)="singleCab(cab,i)">
+              <div class="card cab-card" [ngClass]="{'select':selectedIndex == i}">
+                <div class="flex-justify">
+                  <p>{{cab?.name}}<br><small>{{cab?.cab_number}}</small></p>
+      
+                  <i class="zmdi zmdi-circle" [ngClass]="{'online':cab?.isOnline}"
+                    [matTooltip]="cab?.isOnline?'Online':'Offline'"></i>
+                </div>
+              </div>
+            </div>
+      </div>
+      <ng-template #no_cab>There are no cabs.</ng-template>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content class="side-mat-drawer-content" [ngClass]="{'sidebar':sidebarHide}">
+    <div class="text-right">
+      <!-- <button mat-raised-button (click)="drawer.toggle();">Toggle drawer</button> -->
+      <div class="closed" (click)="drawer.toggle();">
+        <!-- <i class="zmdi zmdi-swap" (click)="drawer.toggle();"></i> -->
+        <!-- <div (click)="drawer.toggle();">
+            <i class="zmdi zmdi-chevron-left"></i>
+            <i class="zmdi zmdi-chevron-left"></i>
+        </div> -->
+        <div>
+          <i class="zmdi zmdi-chevron-right"></i>
+          <i class="zmdi zmdi-chevron-right"></i>
+        </div>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

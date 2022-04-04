@@ -1,0 +1,19 @@
+<div>
+    <h5>Some of the driver are blacklisted. Please change the cab or driver</h5>
+    <div class="mt-4">
+      <div>
+        <div class="flex-justify">
+          <p><b>Cab</b></p>
+          <p><b>Driver</b></p>
+        </div>
+        <div class="flex-justify"  *ngFor="let data of editData">
+          <p>{{data?.driverDetails?.assigned_cab?.name}} ({{data?.driverDetails?.assigned_cab?.cab_number}})</p>
+          <p >{{data?.name}}</p>
+        </div>
+      </div>
+    </div>
+    <mat-dialog-actions class="right-actions">
+      <button  mat-dialog-close class="ok-btn">OK</button>
+      <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    </mat-dialog-actions>
+  </div>

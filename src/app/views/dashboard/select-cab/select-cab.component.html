@@ -1,0 +1,25 @@
+<div>
+  <div class="flex-div-align-justify">
+    <h5>Select Cabs</h5>
+    <i class="zmdi zmdi-close close-model" matTooltip="Close Modal" (click)="closeModal()"></i>
+  </div>
+  <br>
+
+  <div>
+    <form class="example-form" [formGroup]="form">
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="Cab" formControlName="cabs" multiple>
+          <input matInput #search class="search-input" placeholder="Search..." />
+          <mat-option *ngFor="let data of allCabs|filter:search.value" [value]="data">
+            {{data?.name}} ({{data?.cab_number}})
+            <i class="zmdi zmdi-circle" [ngClass]="{'online':data?.isOnline}"
+              [matTooltip]="data?.isOnline?'Online':'Offline'"></i>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="text-right">
+        <button class="btn btn-danger" (click)="viewCabs(form.value)">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

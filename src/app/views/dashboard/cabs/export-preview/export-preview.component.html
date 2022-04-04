@@ -1,0 +1,80 @@
+<div class="text-right">
+  <button class="btn btn-primary" color="primary" (click)="export();">Export</button>
+<br>
+<br>
+</div>
+<div >
+  <!-- <pre>{{data | json}}</pre> -->
+  <table mat-table [dataSource]="allCabs" class="table dataTable table-bordered table-hover table-striped">
+    <ng-container matColumnDef="vendor">
+      <th mat-header-cell *matHeaderCellDef>Vendor </th>
+      <td mat-cell *matCellDef="let element"> {{element?.vendor?.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cab_number">
+      <th mat-header-cell *matHeaderCellDef> Cab No. </th>
+      <td mat-cell *matCellDef="let element"> {{element?.cab_number}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="driver">
+      <th mat-header-cell *matHeaderCellDef> Driver </th>
+      <td mat-cell *matCellDef="let element"> {{element?.assigned_current_driver?.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="driver-phone">
+        <th mat-header-cell *matHeaderCellDef> Driver phone no. </th>
+        <td mat-cell *matCellDef="let element"> {{element?.assigned_current_driver?.phone}} </td>
+      </ng-container>
+      <ng-container matColumnDef="licence">
+          <th mat-header-cell *matHeaderCellDef> Driver licence image </th>
+          <td mat-cell *matCellDef="let element">
+          <span *ngIf="element?.assigned_current_driver?.driver?.licence?.image">Yes</span>
+          <span *ngIf="!element?.assigned_current_driver?.driver?.licence?.image">No</span>
+          </td>
+        </ng-container>
+
+    <!-- <ng-container matColumnDef="tax">
+      <th mat-header-cell *matHeaderCellDef> Tax </th>
+      <td mat-cell *matCellDef="let element"> {{element?.tax?.exp_date |date}} </td>
+    </ng-container> -->
+
+   
+
+    <!-- <ng-container matColumnDef="rc">
+      <th mat-header-cell *matHeaderCellDef> RC </th>
+      <td mat-cell *matCellDef="let element"> {{element?.cab_rc?.exp_date |date}} </td>
+    </ng-container> -->
+
+    <ng-container matColumnDef="permit">
+      <th mat-header-cell *matHeaderCellDef> Permit </th>
+      <td mat-cell *matCellDef="let element">
+          <span *ngIf="!element?.permit?.image && !element?.permit?.exp_date">No document</span>  
+
+        {{element?.permit?.exp_date | date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fitness">
+      <th mat-header-cell *matHeaderCellDef> Fitness </th>
+      <td mat-cell *matCellDef="let element"> 
+          <span *ngIf="!element?.fitness?.image && !element?.fitness?.exp_date">No document</span>  
+
+        {{element?.fitness?.exp_date |date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="insurance">
+      <th mat-header-cell *matHeaderCellDef> Insurance </th>
+      <td mat-cell *matCellDef="let element"> 
+          <span *ngIf="!element?.cab_insurance?.image && !element?.cab_insurance?.exp_date">No document</span>  
+        {{element?.cab_insurance?.exp_date |date}} </td>
+    </ng-container>
+    <ng-container matColumnDef="pollution">
+      <th mat-header-cell *matHeaderCellDef> Pollution </th>
+      <td mat-cell *matCellDef="let element"> 
+      <span>{{element?.cab_pollution_crt?.exp_date |date}}</span>
+      <span *ngIf="!element?.cab_pollution_crt?.image && !element?.cab_pollution_crt?.exp_date">No document</span>  
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

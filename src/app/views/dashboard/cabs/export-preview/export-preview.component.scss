@@ -1,0 +1,27 @@
+table {
+    width: 100%;
+  }
+.table{
+    text-align: left !important;
+}
+.table th,.table td{
+    text-align: left !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.delete-icon{
+    color: #747171;
+
+}
+
+.table tr.mat-footer-row,.table tr.mat-row,tr.mat-header-row  {
+    height: 28px !important;
+}
+.table tr td,.table tr th{
+    padding: 0.7rem 1rem !important;
+
+}
+.table .mat-icon{
+    font-size: 18px !important;
+}

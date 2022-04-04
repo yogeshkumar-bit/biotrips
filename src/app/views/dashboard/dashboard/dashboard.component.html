@@ -1,0 +1,199 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="!(isHandset$ | async)">
+        <div class="logo">
+            <img src="../../../../assets/Biotrips_logo- Final.png" *ngIf="group != 3">
+            <img [src]="vendor?.vendorDetails?.logo?vendor?.vendorDetails?.logo:'../../../../assets/Biotrips_logo- Final.png'" *ngIf="group == 3">
+            <i class="zmdi zmdi-edit mt-2" (click)="file.click()" *ngIf="group == 3"></i>
+            <input #file type="file" style="display: none;" (change)="fileChange($event)" />
+        </div>
+        <mat-nav-list>
+            <div class="menu-list">
+                <div mat-list-item routerLink="" class="menu-list-item" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }">
+                    <div>
+                        <i class="zmdi zmdi-home"></i>
+                        <!-- <div mat-list-item routerLink="/view" class="menu-list-item" routerLinkActive="active">
+                    <div>
+                        <i class="zmdi zmdi-accounts-outline"></i>
+                    </div>
+                    <div>
+                        <p class="menu-item-text"><b>Dashboard</b></p>
+                    </div>
+                </div> -->
+                    </div>
+                    <div>
+                        <p class="menu-item-text"><b>Home</b></p>
+                    </div>
+                </div>
+                <div mat-list-item routerLink="/track" class="menu-list-item" routerLinkActive="active">
+                    <div>
+                        <i class="zmdi zmdi-gps-dot"></i>
+                    </div>
+                    <div>
+                        <p class="menu-item-text"><b>Track</b></p>
+                    </div>
+                </div>
+                <div mat-list-item routerLink="/vendors" class="menu-list-item" routerLinkActive="active"
+                    *ngIf="group != 3">
+                    <div>
+                        <i class="zmdi zmdi-accounts-outline"></i>
+                    </div>
+                    <div>
+                        <p class="menu-item-text"><b>Vendors</b></p>
+                    </div>
+                </div>
+
+                <div mat-list-item routerLink="/companies" class="menu-list-item" routerLinkActive="active"
+                    *ngIf="group != 2">
+                    <div>
+                        <i class="zmdi zmdi-city-alt"></i>
+                    </div>
+                    <div>
+                        <p class="menu-item-text"><b>Companies</b></p>
+                    </div>
+                </div>
+
+
+
+                <div mat-list-item routerLink="/cabs" class="menu-list-item" routerLinkActive="active">
+                    <div>
+                        <i class="zmdi zmdi-car"></i>
+                    </div>
+                    <div>
+                        <p class="menu-item-text"><b>Cabs</b></p>
+                    </div>
+                </div>
+                <div mat-list-item routerLink="/drivers" class="menu-list-item" routerLinkActive="active">
+                    <div>
+                        <i class="zmdi zmdi-bike"></i>
+                    </div>
+                    <div>
+                        <p class="menu-item-text"><b>Drivers</b></p>
+                    </div>
+                </div>
+                <div mat-list-item routerLink="/employees" class="menu-list-item" routerLinkActive="active"
+                    *ngIf="group != 3">
+                    <div>
+                        <i class="zmdi zmdi-face"></i>
+                    </div>
+                    <div>
+                        <p class="menu-item-text"><b>Employees</b></p>
+                    </div>
+                </div>
+                <div mat-list-item routerLink="/routes" class="menu-list-item" routerLinkActive="active">
+                    <div>
+                        <i class="zmdi zmdi-gesture"></i>
+                    </div>
+                    <div>
+                        <p class="menu-item-text"><b>Rosters</b></p>
+                    </div>
+                </div>
+                <div mat-list-item routerLink="/trips" class="menu-list-item" routerLinkActive="active">
+                    <div>
+                        <i class="zmdi zmdi-map"></i>
+                    </div>
+                    <div>
+                        <p class="menu-item-text"><b>Trip Sheet</b></p>
+                    </div>
+                </div>
+                <div mat-list-item routerLink="/reports" class="menu-list-item" routerLinkActive="active">
+                    <div>
+                        <i class="zmdi zmdi-chart"></i>
+                    </div>
+                    <div>
+                        <p class="menu-item-text"><b>Reports</b></p>
+                    </div>
+                </div>
+                <!-- <div mat-list-item routerLink="/shifts" class="menu-list-item" routerLinkActive="active">
+                    <div>
+                            <i class="zmdi zmdi-present-to-all"></i>
+                    </div>
+                    <div>
+                        <p class="menu-item-text"><b>Shift</b></p>
+                    </div>
+                </div> -->
+
+
+            </div>
+        </mat-nav-list>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar class="toolBar example-toolbar">
+            <div class="form-div">
+                <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+                    *ngIf="isHandset$ | async">
+                    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+                </button>
+
+            </div>
+
+
+            <div class="header-icons">
+                <div class="notification">
+                    <span [matMenuTriggerFor]="menuNotif" (click)="getExpiryCabs()" style="position:relative">
+                        <i class="zmdi zmdi-notifications-active"></i>
+                        <small class="notif-count" *ngIf="allNotif?.length>0">{{allNotif?.length}}</small>
+                    </span>
+                    <mat-menu #menuNotif="matMenu" xPosition="before" class="cab-menu">
+                        <div class="row" *ngIf="allNotif?.length>0">
+                            <div class="col-md-6 expired-col">
+                                <h5>Expired</h5>
+                                <div *ngFor="let data of allExpiredNot;let i=index" class="one-doc" [ngClass]="{'no-border':i == allExpiredNot?.length-1}">
+                                    <b (click)="gotoCab(data)" class="cursor">{{data?.name?.name}}</b>
+                                    <p *ngFor="let doc of data?.expiringDocuments">
+                                        {{doc?.name}} <small>({{doc?.exp_date |date}})</small>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 upcoming-col">
+                                <h5>Upcoming</h5>
+                                <div *ngFor="let data of allUpcomingNot;let i=index" class="one-doc" [ngClass]="{'no-border':i == allUpcomingNot?.length-1}">
+                                        <b (click)="gotoCab(data)" class="cursor">{{data?.name?.name}}</b>
+                                        <p *ngFor="let doc of data?.expiringDocuments">
+                                            {{doc?.name}} <small>({{doc?.exp_date |date}})</small>
+                                        </p>
+                                    </div>
+                            </div>
+
+                        </div>
+                        <div *ngIf="allNotif?.length == 0">
+                            <p class="padding">No cabs have expired certificate.</p>
+                        </div>
+                    </mat-menu>
+                </div>
+                <!-- <span><i class="zmdi zmdi-notifications-none p" style="font-size:25px;position: relative;top: 5px;"></i></span> -->
+                <div>
+                    <div class="profile-on-header" [matMenuTriggerFor]="menu"><span>{{user?.name | slice:0:1}}</span>
+                    </div>
+                    <mat-menu #menu="matMenu">
+                        <!-- <button mat-menu-item (click)="profile()">Profile</button> -->
+                        <button mat-menu-item (click)="logout()">Logout</button>
+                    </mat-menu>
+                </div>
+            </div>
+        </mat-toolbar>
+        <!-- <div class="my-card main-card-search" *ngIf="showLead">
+            <div class="row">
+                <div class="col-md-4" *ngFor="let lead of allLeads | async" [routerLink]="['/leads/profile', lead?.lid]"
+                    routerLinkActive="active" (click)="hideLead()">
+                    <div class="main-search-data">
+                        <div>
+                            <h5><b>{{lead?.name}}</b></h5>
+                        </div>
+                        <div>
+                            <p>{{lead?.emails[0]?.email}}</p>
+                            <p>{{lead?.phones[0]?.phoneNumber}}</p>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div> -->
+        <div class="outlet">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

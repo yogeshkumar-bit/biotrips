@@ -1,0 +1,132 @@
+<div class="m-content">
+  
+  <div class="flex-div-align-justify">
+    <h5>Edit Document</h5>
+    <i class="zmdi zmdi-close close-model" matTooltip="Close Modal" (click)="closeModal()"></i>
+  </div>
+  <br>
+  <form class="example-form" [formGroup]="form">
+    <mat-form-field class="example-full-width " *ngIf="editData?.val == 'rc'">
+      <input matInput [matDatepicker]="rc" placeholder="RC Exp. Date" formControlName="rc_exp_date">
+      <mat-datepicker-toggle matSuffix [for]="rc"></mat-datepicker-toggle>
+      <mat-datepicker #rc></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="example-full-width " *ngIf="editData?.val == 'ins'">
+      <input matInput [matDatepicker]="leadcreation2" placeholder="Insurence Exp. Date" formControlName="ins_exp_date">
+      <mat-datepicker-toggle matSuffix [for]="leadcreation2"></mat-datepicker-toggle>
+      <mat-datepicker #leadcreation2></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="example-full-width " *ngIf="editData?.val == 'pol'">
+      <input matInput [matDatepicker]="leadcreation3" placeholder="Pollution Exp. Date" formControlName="pol_exp_date">
+      <mat-datepicker-toggle matSuffix [for]="leadcreation3"></mat-datepicker-toggle>
+      <mat-datepicker #leadcreation3></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="example-full-width " *ngIf="editData?.val == 'fit'">
+      <input matInput [matDatepicker]="fitness" placeholder="Fitness Exp. Date" formControlName="fit_exp_date">
+      <mat-datepicker-toggle matSuffix [for]="fitness"></mat-datepicker-toggle>
+      <mat-datepicker #fitness></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="example-full-width " *ngIf="editData?.val == 'per'">
+      <input matInput [matDatepicker]="permit" placeholder="Permit Exp. Date" formControlName="per_exp_date">
+      <mat-datepicker-toggle matSuffix [for]="permit"></mat-datepicker-toggle>
+      <mat-datepicker #permit></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="example-full-width " *ngIf="editData?.val == 'tax'">
+      <input matInput [matDatepicker]="taxx" placeholder="Tax Exp. Date" formControlName="tax_exp_date">
+      <mat-datepicker-toggle matSuffix [for]="taxx"></mat-datepicker-toggle>
+      <mat-datepicker #taxx></mat-datepicker>
+    </mat-form-field>
+    <br>
+    <!-- <mat-form-field>
+          <input matInput [matDatepicker]="pol" placeholder="Pollution Exp. Date" formControlName="pol_exp_date">
+          <mat-datepicker-toggle matSuffix [for]="pol"></mat-datepicker-toggle>
+          <mat-datepicker #pol></mat-datepicker>
+        </mat-form-field> -->
+    <div *ngIf="editData?.val == 'rc'">
+      <p class="mt-2 mb-3">RC Image</p>
+      <div class="img-div">
+        <img [src]="editData?.data?.cab_rc?.image?editData?.data?.cab_rc?.image:'../../../assets/placeholder.jpg'"
+          class="img-fluid driver-image">
+        <div (click)="rc.click()" class="image-hover">
+          Edit RC Image
+          <input #rc type="file" (change)="onFileInput($event,'rc')" style="display:none;" />
+        </div>
+      </div>
+      <div class="text-center mt-2">{{rcImage?.name}}</div>
+      <br>
+    </div>
+    <div *ngIf="editData?.val == 'ins'">
+      <p class="mt-2 mb-3">Insurence Image</p>
+      <div class="img-div">
+        <img [src]="editData?.data?.cab_insurance?.image?editData?.data?.cab_insurance?.image:'../../../assets/placeholder.jpg'"
+          class="img-fluid driver-image">
+        <div (click)="ins.click()" class="image-hover">
+          Edit Insurence Image
+          <input #ins type="file" (change)="onFileInput($event,'ins')" style="display:none;" />
+        </div>
+      </div>
+      <div class="text-center mt-2">{{insImage?.name}}</div>
+      <br>
+    </div>
+    <div *ngIf="editData?.val == 'pol'">
+      <p class="mt-2 mb-3">Pollution Image</p>
+      <div class="img-div">
+        <img [src]="editData?.data?.cab_pollution_crt?.image?editData?.data?.cab_pollution_crt?.image:'../../../assets/placeholder.jpg'"
+          class="img-fluid driver-image">
+        <div (click)="pol.click()" class="image-hover">
+          Edit Pollution Image
+          <input #pol type="file" (change)="onFileInput($event,'pol')" style="display:none;" />
+        </div>
+      </div>
+      <div class="text-center mt-2">{{polImage?.name}}</div>
+      <br>
+    </div>
+    <div *ngIf="editData?.val == 'fit'">
+      <p class="mt-2 mb-3">Fitness Image</p>
+      <div class="img-div">
+        <img [src]="editData?.data?.fitness?.image?editData?.data?.fitness?.image:'../../../assets/placeholder.jpg'"
+          class="img-fluid driver-image">
+        <div (click)="fit.click()" class="image-hover">
+          Edit Fitness Image
+          <input #fit type="file" (change)="onFileInput($event,'fit')" style="display:none;" />
+        </div>
+      </div>
+      <div class="text-center mt-2">{{fitImage?.name}}</div>
+      <br>
+    </div>
+    <div *ngIf="editData?.val == 'per'">
+      <p class="mt-2 mb-3">Permit Image</p>
+      <div class="img-div">
+        <img [src]="editData?.data?.permit?.image?editData?.data?.permit?.image:'../../../assets/placeholder.jpg'"
+          class="img-fluid driver-image">
+        <div (click)="per.click()" class="image-hover">
+          Edit Permit Image
+          <input #per type="file" (change)="onFileInput($event,'per')" style="display:none;" />
+        </div>
+      </div>
+      <div class="text-center mt-2">{{rcImage?.name}}</div>
+      <br>
+    </div>
+    <div *ngIf="editData?.val == 'tax'">
+      <p class="mt-2 mb-3">Tax Image</p>
+      <div class="img-div">
+        <img [src]="editData?.data?.tax?.image?editData?.data?.tax?.image:'../../../assets/placeholder.jpg'"
+          class="img-fluid driver-image">
+        <div (click)="tax.click()" class="image-hover">
+          Edit Tax Image
+          <input #tax type="file" (change)="onFileInput($event,'tax')" style="display:none;" />
+        </div>
+      </div>
+      <div class="text-center mt-2">{{rcImage?.name}}</div>
+      <br>
+    </div>
+
+    <div class="my-btn">
+      <br>
+      <div class="text-right">
+        <button class="btn btn-danger" (click)="editCab(form.value)">Save</button>
+      </div>
+    </div>
+    <!-- <pre>{{form.value|json}}</pre> -->
+  </form>
+</div>

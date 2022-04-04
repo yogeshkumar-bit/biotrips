@@ -1,0 +1,118 @@
+<div class="m-content">
+
+  <div class="flex-div-align-justify">
+    <h5>Add Roster</h5>
+    <i class="zmdi zmdi-close close-model" matTooltip="Close Modal" (click)="closeModal()"></i>
+  </div>
+  <br>
+  <form class="example-form" [formGroup]="form">
+
+    <mat-form-field class="example-full-width">
+      <input matInput type="text" placeholder="Name" formControlName="name" required>
+      <mat-error
+        *ngIf="form.controls['name'].errors?.required && (form.controls['name']?.dirty || form.controls['name']?.touched)">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" *ngIf="group != 2">
+      <mat-select placeholder="Company" formControlName="company" (selectionChange)="selectCompany($event)">
+        <input matInput #search class="search-input" placeholder="Search..." />
+        <mat-option *ngFor="let data of allCompanies |filter:search.value" [value]="data?._id">
+          {{data?.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field class="example-full-width">
+      <mat-select placeholder="Shift" formControlName="shift">
+        <mat-option *ngFor="let data of allShifts" [value]="data?._id">
+          {{data?.name}} ({{data?.startTime}} - {{data?.endTime}})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-select placeholder="Days" formControlName="days" multiple>
+        <mat-option *ngFor="let data of allDays" [value]="data?.value">
+          {{data?.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-select placeholder="Billing Zone" formControlName="billing_zone">
+        <mat-option *ngFor="let data of allZones" [value]="data?.name">
+          {{data?.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Locality" formControlName="locality" >
+    </mat-form-field>
+
+    <div formGroupName="pickupRoute">
+      <div class="mt-2 mb-2">
+        <p>Pickup Route</p>
+      </div>
+      <!-- <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="First pickup time" formControlName="pickupTime">
+
+      </mat-form-field> -->
+      <!-- <mat-form-field class="example-full-width">
+        <mat-select formControlName="pickupTime" placeholder="First pickup time">
+          <mat-option *ngFor="let data of allTimes;let i=index" [value]="data?.label">
+            {{data?.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+      <div class="time-input">
+        <input atp-time-picker formControlName="pickupTime" placeholder="First pickup time"/>
+        <i class="zmdi zmdi-time"></i>
+      </div>
+
+      <!-- <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Drop Time" formControlName="dropTime">
+
+      </mat-form-field> -->
+    </div>
+
+    <div formGroupName="dropRoute">
+      <div class="mt-2 mb-2">
+        <p>Drop Route</p>
+      </div>
+      <!-- <mat-form-field class="example-full-width">
+        <mat-select formControlName="pickupTime" placeholder="First pickup time">
+          <mat-option *ngFor="let data of allTimes;let i=index" [value]="data?.label">
+            {{data?.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+      <div class="time-input">
+        <input atp-time-picker formControlName="pickupTime" placeholder="First pickup time"/>
+        <i class="zmdi zmdi-time"></i>
+      </div>
+      <!-- <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Drop Time" formControlName="dropTime">
+
+      </mat-form-field> -->
+    </div>
+
+    <mat-form-field class="example-full-width mt-3">
+      <mat-select placeholder="Type" formControlName="routeType">
+        <mat-option value="permanent">
+          Permanent
+        </mat-option>
+        <mat-option value="temporary">
+          Temporary
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="my-btn mt-3">
+      <mat-form-actions>
+        <button mat-raised-button color="primary" style="width: 100%;" [disabled]="form.invalid" (click)="addRoute(form.value)">Add Roster</button>
+      </mat-form-actions>
+    </div>
+    <!-- <pre>{{form.value|json}}</pre> -->
+  </form>
+</div>

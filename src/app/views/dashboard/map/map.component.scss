@@ -1,0 +1,17 @@
+.map{
+    padding:20px;
+    height: 100%;
+    #map{
+        height: 100% !important;
+    }
+}
+
+
+.err-msg{
+    position: absolute;
+    bottom: 20px;
+    padding: 10px 20px;
+    background: gray;
+    color: white;
+
+}

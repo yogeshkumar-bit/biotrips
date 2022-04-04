@@ -1,0 +1,144 @@
+<!-- table -->
+<div class="dpadding">
+  <div>
+    <table mat-table [dataSource]="trips|startTime:tripFor">
+      <ng-container matColumnDef="tno">
+        <th mat-header-cell *matHeaderCellDef> Trip ID </th>
+        <td mat-cell *matCellDef="let data;let i= index"> {{data?.tripId}} </td>
+      </ng-container>
+      <ng-container matColumnDef="sno">
+        <th mat-header-cell *matHeaderCellDef> S. No. </th>
+        <td mat-cell *matCellDef="let data;let i= index"> {{i +1}} </td>
+      </ng-container>
+      <ng-container matColumnDef="route">
+        <th mat-header-cell *matHeaderCellDef> Roster </th>
+        <td mat-cell *matCellDef="let data">
+          <span *ngIf="data?.route"  class="cursor">{{data?.route?.name}}</span>
+          <span *ngIf="!data?.route"  class="cursor">{{data?.name}}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="type" *ngIf="tripFor == 'history'">
+          <th mat-header-cell *matHeaderCellDef> Type </th>
+          <td mat-cell *matCellDef="let data">
+            <span [ngClass]="{'pickup':data?.type == 'pickup','drop':data?.type == 'drop'}">{{data?.type}}</span>
+          </td>
+        </ng-container>
+
+      <ng-container matColumnDef="cab">
+        <th mat-header-cell *matHeaderCellDef> Cab</th>
+        <td mat-cell *matCellDef="let data" class="cursor">
+          <div class="cab-div" *ngIf="tripFor == 'today'">
+            <p>
+              <span *ngIf="(tripType == 'login')">
+                <span *ngIf="!data?.pickupTempCab">
+                  {{data?.cab?.cab_number}}
+                  <small *ngIf="!(data?.cab)" class="bl cursor" (click)="addCab(data)">Add</small>
+                  <small *ngIf="data?.cab" class="cursor bl change" (click)="addCab(data)">Change</small>
+                </span>
+                <span *ngIf="data?.pickupTempCab">
+                  {{data?.pickupTempCab?.cab_number}}
+                  <small *ngIf="!(data?.cab || data?.pickupTempCab)" class="bl cursor"
+                    (click)="addCab(data)">Add</small>
+                  <small *ngIf="(data?.cab || data?.pickupTempCab)" class="cursor bl change"
+                    (click)="addCab(data)">Change</small>
+                </span>
+              </span>
+              <span *ngIf="(tripType == 'logout')">
+                <span *ngIf="data?.dropTempCab">
+                  {{data?.dropTempCab?.cab_number}}
+                  <small *ngIf="!(data?.cab || data?.dropTempCab)" class="bl cursor" (click)="addCab(data)">Add</small>
+                  <small *ngIf="(data?.cab || data?.dropTempCab)" class="cursor bl change"
+                    (click)="addCab(data)">Change</small>
+                </span>
+                <span *ngIf="!data?.dropTempCab">
+                  {{data?.cab?.cab_number}}
+                  <small *ngIf="!(data?.cab)" class="bl cursor" (click)="addCab(data)">Add</small>
+                  <small *ngIf="data?.cab" class="cursor bl change" (click)="addCab(data)">Change</small>
+                </span>
+
+              </span>
+
+            </p>
+          </div>
+          <div *ngIf="tripFor == 'history'">
+            {{data?.cab?.cab_number}}
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Location </th>
+        <td mat-cell *matCellDef="let data">
+          <span *ngIf="tripFor == 'today'">{{data?.locality}}</span>
+          <span *ngIf="tripFor == 'history'">{{data?.route?.locality}}</span>
+        </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="employee">
+        <th mat-header-cell *matHeaderCellDef> Employee </th>
+        <td mat-cell *matCellDef="let data"> <div *ngFor = "let employee of data?.employees">{{employee?.name}}</div> </td>
+      </ng-container> -->
+
+      <ng-container matColumnDef="time">
+        <th mat-header-cell *matHeaderCellDef> Time </th>
+        <td mat-cell *matCellDef="let data" class="green-td">
+          
+          <span *ngIf="tripFor == 'today'" class="green-span">
+
+            <span *ngIf="(tripType == 'login')">
+              {{data?.pickupRoute?.pickupTime}}
+
+              <span *ngIf="!(data?.pickupTempCab || data?.cab)">
+                <i class="zmdi zmdi-circle ml-3" *ngIf="data?.pickupRoute?.pickupTime | red"
+                  matTooltip="Less than 4 hours"></i>
+              </span>
+            </span>
+            <span *ngIf="(tripType == 'logout')">
+              {{data?.dropRoute?.pickupTime}}
+
+              <span *ngIf="!(data?.dropTempCab || data?.cab)">
+                <i class="zmdi zmdi-circle ml-3" *ngIf="data?.dropRoute?.pickupTime | red"
+                  matTooltip="Less than 4 hours"></i>
+              </span>
+            </span>
+
+            <!-- {{data?.pickupRoute?.pickupTime | red}} -->
+          </span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="startTime" *ngIf="tripFor == 'history'">
+          <th mat-header-cell *matHeaderCellDef> Trip Start </th>
+          <td mat-cell *matCellDef="let data">
+                  <span>{{data?.startTime | date: 'short'}} 
+                </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="endTime" *ngIf="tripFor == 'history'">
+            <th mat-header-cell *matHeaderCellDef> Trip End </th>
+            <td mat-cell *matCellDef="let data">
+                <span *ngIf="data?.completed">{{data?.endTime | date: 'short'}}</span>
+                <span *ngIf="!data?.completed">Not completed yet ({{data | tripStatus}})</span>
+            </td>
+          </ng-container>
+     
+      <ng-container matColumnDef="path">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let data">
+            <button class="btn btn-primary detail-btn" (click)="showHistory(data)" *ngIf="data?.tripFor == 'history'">Show Detail</button>
+          <button class="btn btn-primary ml-2" (click)="tripPath(data)" *ngIf="data?.tripFor == 'history'">Show path</button>
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <!-- <mat-paginator [length]="100" [pageSize]="20" [pageSizeOptions]="[5, 10, 25]" (page)="next($event)">
+    </mat-paginator> -->
+    <!-- <div class="create-direct" (click)="addVendor()">
+      <i class="zmdi zmdi-plus-circle"></i>
+    </div> -->
+
+  </div>
+</div>

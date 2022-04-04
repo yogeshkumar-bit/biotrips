@@ -1,0 +1,107 @@
+.example-container{
+    height:100%;
+}
+
+.side-mat-drawer{
+    // margin-right: 350px;
+}
+
+.mat-width{
+    width: 350px;
+}
+
+.card{
+    margin-bottom: 20px;
+    cursor: pointer;
+    i{
+        color: red;
+    }
+}
+
+.closed{
+    font-size: 16px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0px 10px;
+    height: 44px;
+    background-color: white;
+    color: white;
+    z-index: 4;
+    box-shadow: 0 0 10px rgba(156, 159, 154, 1);
+    border-bottom-left-radius: 3px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    i{
+        // color: white;
+    }
+
+}
+
+.select{
+    background: #F6F8FC;
+    color: #536E92;
+    // border: 1px solid #e6ebf3 !important;
+    // padding: 10px 10px !important;
+
+    .flex-justify{
+        // border-bottom: none !important;
+        // padding-bottom: 0px !important;    
+    }
+    
+}
+
+.selectAll{
+    background: #F6F8FC;
+    color: #536E92;
+}
+
+.online{
+    color: #18c718 !important;
+}
+
+.map-for{
+    display: flex;
+    border: 1px solid #e6ebf3;
+    border-radius: 3px;
+    div{
+        width: 50%;
+        padding:6px 10px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    .select-cab{
+        border-right:1px solid #e6ebf3;
+    }
+}
+
+.cab-card{
+    // margin-bottom:20px !important;
+    padding:0 10px;
+    margin-bottom: 0px !important;
+    box-shadow: none !important;
+    .flex-justify{
+        padding-top: 10px;
+        padding-bottom: 10px;
+    border-bottom: 1px solid #e6ebf3;
+    }
+}
+
+mat-radio-group{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search{
+    border:1px solid #e6ebf3;
+    width: 100%;
+    padding:7px 10px;
+    border-radius: 3px;
+}
+
+

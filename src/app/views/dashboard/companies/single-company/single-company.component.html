@@ -1,0 +1,121 @@
+
+
+<div class="header-height">
+    <h5><span style="border-bottom: 1px solid #9E9E9E; cursor: pointer;" routerLink="/companies">  Company </span> &nbsp; > {{singleCompany?.name}}</h5>
+</div>
+<div class="dpadding">
+    <p>
+    </p>
+    <div class="card">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="flex-justify-between">
+                    <b>{{singleCompany?.name}}</b>
+                    <div *ngIf="group != 3 ">
+                        <i class="zmdi zmdi-more-vert more" [matMenuTriggerFor]="menu"></i>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="editCompany(singleCompany)" >Edit Company</button>
+                            <button mat-menu-item (click)="deleteCompany(singleCompany)" >Delete Company</button>
+                            <!-- <button mat-menu-item  >Assign Vendor</button> -->
+                        </mat-menu>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <div class="flex-justify-between">
+                        <p>{{singleCompany?.email}}</p>
+                        <p>{{singleCompany?.phone}}</p>
+                    </div>
+                </div>
+                <div class="cab-tab">
+                    <b class="mb-2">{{singleCompany?.name}} Details</b>
+                    <mat-tab-group>
+                        <mat-tab label="Vendors" *ngIf="group != 3">
+                            <div class="tab-content">
+                                <div class="text-right">
+                                    <button class="btn btn-primary" (click)="assignVendor(singleCompany)">Assign Vendor</button>
+                                </div>
+                                <div class="row" *ngIf="singleCompany?.companyDetails?.vendors?.length > 0;else no_vendor">
+                                        <div class="col-md-6 col-sm-12 col-xs-12"
+                                        *ngFor="let data of singleCompany?.companyDetails?.vendors">
+                                        <div class="vendor-card">
+                                                <i class="zmdi zmdi-close-circle close-icon" (click)="removeVendor(data)"></i>
+                                            <b (click)="singleVendor(data)" class="cursor">{{data?.name}}</b>
+                                            <div class="flex-justify-between">
+                                                <p>{{data?.email}}</p>
+                                                <p>{{data?.phone}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #no_vendor>There are no vendors</ng-template>
+                            </div>
+                        </mat-tab>
+                        <mat-tab label="Cabs">
+                            <div class="tab-content">
+                                    <div class="row" *ngIf="singleCompany?.cabs?.length > 0;else no_cab">
+                                            <div class="col-md-6 col-sm-12 col-xs-12"
+                                            *ngFor="let data of singleCompany?.cabs">
+                                            <div class="vendor-card">
+                                                    <i class="zmdi zmdi-close-circle close-icon" (click)="removeCab(data)"></i>
+                                                <b (click)="singleCab(data)" class="cursor">{{data?.name}}</b>
+                                                <div class="flex-justify-between">
+                                                    <p>{{data?.cab_model}}</p>
+                                                    <p>{{data?.cab_number}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ng-template #no_cab>There are no cabs</ng-template>
+                            </div>
+                        </mat-tab>
+
+                    </mat-tab-group>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="vendor-driver">
+                    <div>
+                        <b>Address</b>
+                        <div class="vendor-card">
+                            <div *ngIf="singleCompany?.address">
+                                <p>{{singleCompany?.address?.lineOne}} <span *ngIf="singleCompany?.address?.lineTwo">,
+                                    </span> {{singleCompany?.address?.lineTwo}}</p>
+                                <p>{{singleCompany?.address?.area}} <span *ngIf="singleCompany?.address?.city">,
+                                    </span>{{singleCompany?.address?.city}}</p>
+                                <p>{{singleCompany?.address?.state}} <span *ngIf="singleCompany?.address?.pin">,
+                                    </span>{{singleCompany?.address?.pin}}</p>
+                            </div>
+                            <div *ngIf="!singleCompany?.address">
+                                <p>No address here</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <b>Owner</b>
+                        <div class="vendor-card">
+                            <p>{{singleCompany?.companyDetails?.owner_name}}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex-justify">
+                            <b>Zone</b>
+                            <i class="zmdi zmdi-plus-circle" (click)="addZone('add')" *ngIf="!singleCompany?.companyDetails?.zone || singleCompany?.companyDetails?.zone?.length == 0"></i>
+                            <i class="zmdi zmdi-edit" (click)="addZone('edit')" *ngIf="singleCompany?.companyDetails?.zone && singleCompany?.companyDetails?.zone?.length > 0"></i>
+                        </div>
+                        <div class="vendor-card">
+                            <div *ngIf="singleCompany?.companyDetails?.zone?.length>0">
+                                    <div *ngFor="let zone of singleCompany?.companyDetails?.zone">
+                                            <p>{{zone?.name}} ({{zone?.amount}})</p>
+                                        </div>
+                            </div>
+                            <div *ngIf="!singleCompany?.companyDetails?.zone || singleCompany?.companyDetails?.zone?.length == 0">
+                                <p>There is no zone.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

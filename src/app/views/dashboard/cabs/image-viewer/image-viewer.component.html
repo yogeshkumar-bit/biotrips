@@ -1,0 +1,5 @@
+<div *ngIf="images?.length>0; else no_image" style="height: 100%" class="image-viewer">
+    <ngx-image-viewer [src]="images" [config]="config" (customEvent)="handleEvent($event)">
+    </ngx-image-viewer>
+</div>
+<ng-template #no_image>There are no documents.</ng-template>

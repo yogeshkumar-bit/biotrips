@@ -1,0 +1,97 @@
+<div class="header-height">
+    <h5> <span style="border-bottom: 1px solid #9E9E9E; cursor: pointer;" routerLink="/vendors">  Vendor </span> &nbsp; > {{singleVendor?.name}}</h5>
+  </div>
+  <div class="dpadding">
+    <p>
+      <!-- {{singleDriver |json}} -->
+    </p>
+    <div class="card">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="flex-justify-between">
+            <b>{{singleVendor?.name}}</b>
+            <div>
+                <i class="zmdi zmdi-more-vert more" [matMenuTriggerFor]="menu"></i>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="editVendor(singleVendor)">Edit Vendor</button>
+                  <button mat-menu-item (click)="deleteVendor(singleVendor)">Delete Vendor</button>
+                </mat-menu>
+            </div>
+          </div>
+          <div class="mt-2">
+              <div class="flex-justify-between">
+                  <p>{{singleVendor?.email}}</p>
+                  <p>{{singleVendor?.phone}}</p>
+                </div>
+          </div>
+          <div class="cab-tab">
+            <b class="mb-2">{{singleVendor?.name}} Details</b>
+              <mat-tab-group>
+                  <mat-tab label="Companies" *ngIf="group !=2">
+                      <div class="tab-content">
+                          <div class="row" *ngIf="singleVendor?.companies?.length > 0;else no_company">
+                                  <div class="col-md-6 col-sm-12 col-xs-12"
+                                  *ngFor="let data of singleVendor?.companies">
+                                  <div class="vendor-card">
+                                      <b (click)="singleCompany(data)" class="cursor">{{data?.name}}</b>
+                                      <div class="flex-justify-between">
+                                          <p>{{data?.email}}</p>
+                                          <p>{{data?.phone}}</p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <ng-template #no_company>There are no comapnies</ng-template>
+                      </div>
+                    </mat-tab>
+                  <mat-tab label="Cabs">
+                      <div class="tab-content">
+                          <div class="row" *ngIf="singleVendor?.cabs?.length > 0;else no_cab">
+                                  <div class="col-md-6 col-sm-12 col-xs-12"
+                                  *ngFor="let data of singleVendor?.cabs">
+                                  <div class="vendor-card">
+                                      <b (click)="singleCab(data)" class="cursor">{{data?.name}}</b>
+                                      <div class="flex-justify-between">
+                                          <p>{{data?.cab_model}}</p>
+                                          <p>{{data?.cab_number}}</p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <ng-template #no_cab>There are no cabs</ng-template>
+                  </div>
+                    </mat-tab>
+  
+                </mat-tab-group>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="vendor-driver">
+            <div>
+              <b>Address</b>
+              <div class="vendor-card">
+                <div  *ngIf="singleVendor?.address">
+                    <p>{{singleVendor?.address?.lineOne}} 
+                      <!-- <span *ngIf="singleVendor?.address?.lineTwo">
+                      , </span> {{singleVendor?.address?.lineTwo}} -->
+                    </p>
+                    <!-- <p>{{singleVendor?.address?.area}} <span *ngIf="singleVendor?.address?.city">, </span>{{singleVendor?.address?.city}}</p> -->
+                    <!-- <p>{{singleVendor?.address?.state}} <span *ngIf="singleVendor?.address?.pin">, </span>{{singleVendor?.address?.pin}}</p> -->
+                </div>
+                <div *ngIf="!singleVendor?.address">
+                    <p>No address here</p>
+                </div>
+              </div>
+            </div>
+            <div>
+                <b>Owner</b>
+                <div class="vendor-card">
+                  <p>{{singleVendor?.vendorDetails?.owner_name}}</p>
+                </div>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

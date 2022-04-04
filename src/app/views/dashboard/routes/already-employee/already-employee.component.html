@@ -1,0 +1,19 @@
+<div>
+  <h5>Some of the employees are already assigned in other roster</h5>
+  <div class="mt-4">
+    <div>
+      <div class="flex-justify">
+        <p><b>Employee</b></p>
+        <p><b>Roster</b></p>
+      </div>
+      <div class="flex-justify"  *ngFor="let data of employees">
+        <p>{{data?.employee?.name}}</p>
+        <p *ngFor="let route of data?.route">{{route?.name}}</p>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions class="right-actions">
+    <button  mat-dialog-close mat-raised-button color ="primary">OK</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,151 @@
+<div class="m-content">
+  
+  <div class="flex-div-align-justify">
+    <h5>Add Cab</h5>
+    <i class="zmdi zmdi-close close-model" matTooltip="Close Modal" (click)="closeModal()"></i>
+  </div>
+  <br>
+  <form class="example-form" [formGroup]="form">
+
+      <mat-form-field class="example-full-width">
+          <input matInput type="text" placeholder="Name" formControlName="name" required>
+          <mat-error *ngIf="form.controls['name'].errors?.required && (form.controls['name']?.dirty || form.controls['name']?.touched)">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+        <!-- <mat-form-field class="example-full-width">
+          <input matInput type="email" placeholder="Email" formControlName="email" required>
+          <mat-error *ngIf="form.controls['email'].errors?.required && (form.controls['email']?.dirty || form.controls['email']?.touched)">
+              Email is required
+            </mat-error>
+            <mat-error  *ngIf="!form.controls['email'].errors?.required && !form.controls['email']?.valid">
+              Email is not valid
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput type="tel" placeholder="Phone No." formControlName="phone" required>
+          <mat-error *ngIf="form.controls['phone'].errors?.required && (form.controls['phone']?.dirty || form.controls['phone']?.touched)">
+            Phone No. is required
+          </mat-error>
+        </mat-form-field> -->
+        <mat-form-field class="example-full-width">
+          <input matInput type="text" placeholder="Cab Number" formControlName="cab_number" required>
+          <mat-error *ngIf="form.controls['cab_number'].errors?.required && (form.controls['cab_number']?.dirty || form.controls['cab_number']?.touched)">
+            Cab Number is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput type="text" placeholder="Cab Model" formControlName="cab_model" required>
+          <mat-error *ngIf="form.controls['cab_model'].errors?.required && (form.controls['cab_model']?.dirty || form.controls['cab_model']?.touched)">
+            Cab Model is required
+          </mat-error>
+        </mat-form-field>
+        <!-- <mat-form-field class="example-full-width">
+          <input matInput [matDatepicker]="picker" placeholder="RC Exp. Date" formControlName="rc_exp_date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field> -->
+
+        <mat-form-field class="example-full-width ">
+          <input matInput [matDatepicker]="rce" placeholder="RC Exp. Date" formControlName="rc_exp_date">
+          <mat-datepicker-toggle matSuffix [for]="rce"></mat-datepicker-toggle>
+          <mat-datepicker #rce></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="example-full-width ">
+          <input matInput [matDatepicker]="leadcreation2" placeholder="Insurence Exp. Date" formControlName="ins_exp_date" >
+          <mat-datepicker-toggle matSuffix [for]="leadcreation2"></mat-datepicker-toggle>
+          <mat-datepicker #leadcreation2></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="example-full-width ">
+          <input matInput [matDatepicker]="leadcreation3" placeholder="Pollution Exp. Date" formControlName="pol_exp_date" >
+          <mat-datepicker-toggle matSuffix [for]="leadcreation3"></mat-datepicker-toggle>
+          <mat-datepicker #leadcreation3></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="example-full-width ">
+          <input matInput [matDatepicker]="fitness" placeholder="Fitness Exp. Date" formControlName="fit_exp_date" >
+          <mat-datepicker-toggle matSuffix [for]="fitness"></mat-datepicker-toggle>
+          <mat-datepicker #fitness></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="example-full-width ">
+          <input matInput [matDatepicker]="permit" placeholder="Permit Exp. Date" formControlName="per_exp_date" >
+          <mat-datepicker-toggle matSuffix [for]="permit"></mat-datepicker-toggle>
+          <mat-datepicker #permit></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="example-full-width ">
+          <input matInput [matDatepicker]="taxx" placeholder="Tax Exp. Date" formControlName="tax_exp_date" >
+          <mat-datepicker-toggle matSuffix [for]="taxx"></mat-datepicker-toggle>
+          <mat-datepicker #taxx></mat-datepicker>
+        </mat-form-field>
+
+        <!-- <mat-form-field>
+          <input matInput [matDatepicker]="pol" placeholder="Pollution Exp. Date" formControlName="pol_exp_date">
+          <mat-datepicker-toggle matSuffix [for]="pol"></mat-datepicker-toggle>
+          <mat-datepicker #pol></mat-datepicker>
+        </mat-form-field> -->
+        <button (click)="rc.click()" class="btn btn-danger">
+          <span>Upload RC Image</span>
+          <input #rc type="file" (change)="onFileInput($event,'rc')" style="display:none;" />
+        </button>
+        <span style="margin-left:10px;">{{rcImage?.name}}</span>
+        <br>
+        <button (click)="ins.click()" class="btn btn-danger">
+          <span>Upload Insurence Image</span>
+          <input #ins type="file" (change)="onFileInput($event,'ins')" style="display:none;" />
+        </button>
+        <span style="margin-left:10px;">{{insImage?.name}}</span>
+        <br>
+        <button (click)="pol.click()" class="btn btn-danger">
+          <span>Upload Pollution Image</span>
+          <input #pol type="file" (change)="onFileInput($event,'pol')" style="display:none;" />
+        </button>
+        <span style="margin-left:10px;">{{polImage?.name}}</span>
+        <br>
+        <button (click)="fit.click()" class="btn btn-danger">
+          <span>Upload Fitness Image</span>
+          <input #fit type="file" (change)="onFileInput($event,'fit')" style="display:none;" />
+        </button>
+        <span style="margin-left:10px;">{{fitImage?.name}}</span>
+        <br>
+        <button (click)="per.click()" class="btn btn-danger">
+          <span>Upload Permit Image</span>
+          <input #per type="file" (change)="onFileInput($event,'per')" style="display:none;" />
+        </button>
+        <span style="margin-left:10px;">{{perImage?.name}}</span>
+        <br>
+        <button (click)="tax.click()" class="btn btn-danger">
+          <span>Upload Tax Image</span>
+          <input #tax type="file" (change)="onFileInput($event,'tax')" style="display:none;" />
+        </button>
+        <span style="margin-left:10px;">{{taxImage?.name}}</span>
+        <br>
+        <br>
+
+        <div>
+          <mat-form-field class="example-full-width" *ngIf="group != 3">
+            <mat-select placeholder="Vendor" formControlName="vendor">
+                <input matInput  #vendorSearch class="search-input" placeholder="Search..."/>
+              <mat-option *ngFor="let data of allVendors | filter:vendorSearch.value" [value]="data?._id">
+                {{data?.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- <mat-form-field class="example-full-width" *ngIf="group != 2">
+              <mat-select placeholder="Assign to" formControlName="company">
+                  <input matInput  #companySearch class="search-input" placeholder="Search..."/>
+                <mat-option *ngFor="let data of allCompanies | filter:companySearch.value" [value]="data?._id">
+                  {{data?.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+          <br>
+        </div>
+        
+        <br>
+    <div class="my-btn">
+        <mat-form-actions>
+            <button mat-raised-button color="primary" style="width: 100%;"   [disabled]="form.invalid" (click)="addCab(form.value)" >Add Cab</button>
+        </mat-form-actions>
+      </div>
+    <!-- <pre>{{form.value|json}}</pre> -->
+  </form>
+</div>

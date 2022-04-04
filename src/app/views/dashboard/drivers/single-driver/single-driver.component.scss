@@ -1,0 +1,119 @@
+.vendor-driver{
+    border-left:1px solid #e6ebf3;
+    padding-left:20px;
+    height: 100%;
+}
+
+.vendor-card{
+    padding:15px;
+    border:1px solid #e6ebf3;
+    border-radius: 3px;
+    margin: 20px 0;
+}
+
+
+.flex-justify{
+    .second-div{
+    text-align: right;
+    width: 50%;
+    }
+    .first-div{
+        width: 50%;
+        }
+}
+.flex-justify-around{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    .second-div,.third-div{
+        width: 25%;
+        }
+        .first-div{
+            width: 50%;
+            }
+}
+
+.display{
+    display: flex;
+    align-items: center;
+    i{
+        font-size: 20px;
+    }
+}
+
+.cab-tab{
+    padding-top:20px;
+}
+.tab-content{
+    padding:25px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.img-tab{
+    height: 200px;
+    margin-bottom: 20px;
+    border:1px solid #e6ebf3;
+    border-radius: 3px;
+    max-width: 100%;
+}
+
+
+
+
+//table
+
+tr.example-detail-row {
+    height: 0;
+    cursor: pointer;
+
+    .mat-column-expendedDetail{
+        padding: 0 10px !important;
+    }
+  }
+
+  .expand-padding{
+    //   padding:20px 0;
+    width: 100%;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):hover {
+    // background: #777;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):active {
+    // background: #efefef;
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+    cursor: pointer;
+  }
+  
+  .example-element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .example-element-diagram {
+    min-width: 80px;
+    // border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+  }
+  
+  .example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+  }
+  
+  .example-element-description {
+    padding: 16px;
+  }
+  
+  .example-element-description-attribution {
+    opacity: 0.5;
+  }

@@ -1,0 +1,50 @@
+.card{
+    border: 1px solid rgba(0, 0, 0, 0.04) !important;
+}
+
+.same-td{
+    // border-bottom: none !important;
+    height: 40px;
+    display: flex;
+    white-space: nowrap;
+}
+
+.multiple-td{
+    padding: 12px 0 !important;
+    tbody{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+
+        tr:last-child td{
+            border-bottom: none !important;
+        }
+    }
+}
+
+.emp{
+    cursor: pointer;
+    i{
+        opacity: 0;
+        transition: 0.5s
+    }
+}
+
+.emp:hover{
+    i{
+        opacity: 1;
+    }
+}
+
+.input-width{
+    width:100px;
+    
+}
+
+.mat-badge-content{
+    font-size: 10px;
+    max-width: 14px;
+    max-height: 16px;
+    min-width: 14px;
+    min-height: 16px;
+}

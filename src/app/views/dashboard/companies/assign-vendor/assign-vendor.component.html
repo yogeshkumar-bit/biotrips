@@ -1,0 +1,21 @@
+<div>
+  
+  <div class="flex-div-align-justify">
+    <h5>Assign Vendor</h5>
+    <i class="zmdi zmdi-close close-model" matTooltip="Close Modal" (click)="closeModal()"></i>
+  </div>
+  <div>
+    <form class="example-form" [formGroup]="form">
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="Vendor" formControlName="vendor">
+          <mat-option *ngFor="let data of allVendors" [value]="data?._id">
+            {{data?.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button class="btn btn-danger" (click)="assignVendor(form.value)">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

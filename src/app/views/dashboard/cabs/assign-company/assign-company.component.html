@@ -1,0 +1,29 @@
+<div>
+  
+    <div class="flex-div-align-justify">
+      <h5>
+        <span >Assign Company</span>
+      </h5>
+      <i class="zmdi zmdi-close close-model" matTooltip="Close Modal" (click)="closeModal()"></i>
+    </div>
+    
+    <div >
+        
+        <div>
+            <form class="example-form" [formGroup]="form">
+              <mat-form-field class="example-full-width">
+                <mat-select placeholder="Company" formControlName="company" required>
+                    <input matInput  #search class="search-input" placeholder="Search..."/>
+                  <mat-option *ngFor="let data of allCompanies | filter:search.value" [value]="data?._id">
+                    {{data?.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              
+            </form>
+          </div>
+        <mat-dialog-actions class="right-actions">
+          <button class="btn btn-danger" (click)="assignCompany(form.value)" [disabled]="form.invalid">Save</button>
+        </mat-dialog-actions>
+    </div>
+</div>

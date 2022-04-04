@@ -1,0 +1,102 @@
+<div class="m-content">
+  
+    <div class="flex-div-align-justify">
+      <h5>Update Payment</h5>
+      <i class="zmdi zmdi-close close-model" matTooltip="Close Modal" (click)="closeModal()"></i>
+    </div>
+    <br>
+    <form class="example-form" [formGroup]="form">
+  
+      <!-- <mat-form-field class="example-full-width">
+        <input matInput type="number" placeholder="No. of trips" formControlName="number_of_trips" required>
+        <mat-error
+          *ngIf="form.controls['number_of_trips'].errors?.required && (form.controls['number_of_trips']?.dirty || form.controls['number_of_trips']?.touched)">
+          No. of trips is required
+        </mat-error>
+      </mat-form-field> -->
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="Month" formControlName="month">
+          <mat-option *ngFor="let data of allMonths" [value]="data">
+            {{data}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="Year" formControlName="year">
+          <mat-option *ngFor="let data of allYears" [value]="data">
+            {{data}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <div formArrayName="earnings">
+  
+        <div *ngFor="let comp of form['controls'].earnings['controls']; let i=index" class="">
+          <div  [formGroupName]="i">
+            <div class="flex-justify">
+            <p>Earning {{i+1}}</p>
+            <i class="zmdi zmdi-close ml-3" (click)="deleteEarning(i)" ></i>
+            </div>
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Company" formControlName="company">
+                  <input matInput  #search class="search-input" placeholder="Search..."/>
+                <mat-option *ngFor="let data of allCompanies|filter:search.value" [value]="data?._id">
+                  {{data?.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Trips" formControlName="trips" type="number">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Amount" formControlName="amount" type="number">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <textarea matInput placeholder="Description" formControlName="description"></textarea>
+              </mat-form-field>
+          </div>
+  
+        </div>
+        <div class="text-right">
+          <span class="sm-bold cursor" (click)="addNewEarning()">Add Earning</span>
+        </div>
+      </div>
+  
+      <div formArrayName="deductions">
+  
+          <div *ngFor="let comp of form['controls'].deductions['controls']; let j=index" class="">
+            <div  [formGroupName]="j">
+              <div class="flex-justify">
+              <p>Deduction {{j+1}}</p>
+              <i class="zmdi zmdi-close ml-3" (click)="deleteDeduction(j)" ></i>
+              </div>
+             
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Deduction For" formControlName="deductionFor" type="text">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Amount" formControlName="amount" type="number">
+              </mat-form-field>
+            </div>
+    
+          </div>
+          <div class="text-right">
+            <span class="sm-bold cursor" (click)="addNewDeduction()">Add Deduction</span>
+          </div>
+        </div>
+        <mat-form-field class="example-full-width">
+            <input matInput type="number" placeholder="TDS" formControlName="tds" >
+            <!-- <mat-error
+              *ngIf="form.controls['tds'].errors?.required && (form.controls['tds']?.dirty || form.controls['tds']?.touched)">
+              No. of trips is required
+            </mat-error> -->
+          </mat-form-field>
+  
+      <div class="my-btn">
+        <mat-form-actions>
+          <button class="btn btn-danger" [disabled]="form.invalid" (click)="editPayment(form.value)">Save</button>
+        </mat-form-actions>
+      </div>
+      <!-- <pre>{{form.value|json}}</pre> -->
+    </form>
+  </div>

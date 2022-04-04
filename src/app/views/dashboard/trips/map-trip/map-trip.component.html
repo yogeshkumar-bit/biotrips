@@ -1,0 +1,46 @@
+<div class="map">
+  <div class="form-div header-height npadding">
+    <div>
+      <h5 class="cursor" (click)="goBack()" >< Trip Sheet</h5>
+    </div>
+    <form [formGroup]="form" novalidate class="date-div">
+      <mat-form-field class="form-element">
+        <mat-select placeholder="Cab" formControlName="cab">
+          <mat-option *ngFor="let data of allCabs" [value]="data?._id">
+            {{data?.name}} ({{data?.cab_number}})
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <ejs-daterangepicker formControlName="date" placeholder='Start - End Date' class="form-element" (change)="changeCab($event,'date')">
+      </ejs-daterangepicker> -->
+      <mat-form-field class="ml-2">
+        <input matInput [matDatepicker]="picker" placeholder="Start date" formControlName="startDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="time ml-2">
+        <mat-select formControlName="startTime" placeholder="Time">
+          <mat-option *ngFor="let data of allTimes;let i=index" [value]="data?.label">
+            {{data?.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="ml-2">
+        <input matInput [matDatepicker]="picker2" placeholder="End date" formControlName="endDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field  class="time ml-2">
+        <mat-select formControlName="endTime" placeholder="Time">
+          <mat-option *ngFor="let data of allTimes;let i=index" [value]="data?.label">
+            {{data?.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button class="btn btn-primary ml-3" (click)="showTrak(form.value)">Track</button>
+      <i class="zmdi zmdi-close" style="margin-left: 10px;position: relative;top: 2px;"
+              *ngIf="showClose" (click)="reset()"></i>
+    </form>
+  </div>
+  <div #map id="map"></div>
+</div>

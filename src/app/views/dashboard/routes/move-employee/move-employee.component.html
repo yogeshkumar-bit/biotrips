@@ -1,0 +1,21 @@
+<h4>Move Employee</h4>
+<form [formGroup]="form"  >
+  <mat-form-field>
+    <mat-label>Move Employee</mat-label>
+    <mat-select formControlName="routeId">
+      <span *ngFor="let route of getData;">
+        <mat-option *ngIf = "route?.company?._id == employeeCompanyId"  [value] = "route?._id">
+          <p>
+            {{route.name}}
+            <!-- {{employeeCompanyId}} 
+            {{route?.company?._id}} -->
+            <!-- {{route?.company?.name}} -->
+          </p>
+        </mat-option>
+      </span>
+    </mat-select>
+  </mat-form-field>
+  <button type="submit" class="btn btn-primary" (click)="selectedRoute()">Save</button>
+</form>
+
+<!-- *ngIf="route?.company?._id == route?.employees?.employeeDetails?.company"-->

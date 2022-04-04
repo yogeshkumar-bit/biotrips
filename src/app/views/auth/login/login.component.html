@@ -1,0 +1,32 @@
+<div class="login">
+  <div class="card">
+      <!-- <h4>Login</h4> -->
+      <form class="example-form" [formGroup]="loginForm">
+
+      
+        <mat-form-field class="example-full-width">
+          <input matInput type="email" placeholder="Email" formControlName="email">
+          <mat-error *ngIf="loginForm.controls['email'].errors?.required && (loginForm.controls['email']?.dirty || loginForm.controls['email']?.touched)">
+              Email is required
+            </mat-error>
+            <mat-error  *ngIf="!loginForm.controls['email'].errors?.required && !loginForm.controls['email']?.valid">
+              Email is not valid
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput type="password" placeholder="Password" formControlName="password">
+          <mat-error *ngIf="loginForm.controls['password'].errors?.required && (loginForm.controls['password']?.dirty || loginForm.controls['password']?.touched)">
+            Password is required
+          </mat-error>
+        </mat-form-field>
+        <div class="my-btn flex-div-align-justify">
+        <button class="btn btn-danger"   [disabled]="loginForm.invalid" (click)="login(loginForm.value)">Login</button>
+        <small class="forgot" (click)="forgotPassword()">Forgot Password</small>        
+      </div>
+        <div>
+        </div>
+        <!-- <pre>{{loginForm.value|json}}</pre> -->
+      </form>
+    </div>
+</div>

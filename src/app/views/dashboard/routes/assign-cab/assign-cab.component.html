@@ -1,0 +1,27 @@
+<div>
+    
+    <div class="flex-div-align-justify">
+      <h5 >
+        <span *ngIf="!editData?.cab">Assign Cab</span>
+        <span *ngIf="editData?.cab">Change Cab</span>
+      </h5>
+      <i class="zmdi zmdi-close close-model" matTooltip="Close Modal" (click)="closeModal()"></i>
+    </div>
+    <div class="mt-3">
+      <form class="example-form" [formGroup]="form">
+        
+        <mat-form-field class="example-full-width">
+          <mat-select placeholder="Cab" formControlName="cab">
+            <input matInput #search class="search-input" placeholder="Search..."/>
+            <mat-option *ngFor="let data of allCabs |filter:search.value" [value]="data?._id">
+              {{data?.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+      </form>
+    </div>
+  </div>
+  <mat-dialog-actions class="right-actions">
+    <button class="btn btn-danger" (click)="assignCab(form.value)">Save</button>
+  </mat-dialog-actions>

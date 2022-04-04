@@ -1,0 +1,43 @@
+.image_width{
+    max-width: 100%;
+    max-height: 250px;
+    margin-bottom:25px;
+    margin-top:25px;
+}
+
+.driver-image{
+    // width: 100%;
+}
+.image-hover{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: #00000040;
+    font-size: 20px;
+    transition:0.5s;
+    display: none;
+}
+
+.img-div{
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 150px;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 3px;
+    border:1px solid #e6ebf3;
+    img{
+    border-radius: 3px;
+    }
+}
+
+.img-div:hover .image-hover{
+    display: flex;
+}

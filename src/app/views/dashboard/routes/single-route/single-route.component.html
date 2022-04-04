@@ -1,0 +1,159 @@
+<div class="header-height">
+  <h5> <span style="border-bottom: 1px solid #9E9E9E; cursor: pointer;" routerLink = "/routes"> Roster </span> &nbsp; > {{singleRoute?.name}}</h5>
+</div>
+<div class="dpadding">
+  <p>
+    <!-- {{singleDriver |json}} -->
+  </p>
+  <div class="card">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="flex-justify-between">
+          <b>{{singleRoute?.name}}</b>
+          <div>
+            <button class="btn btn-primary mr-3" (click)="assignRouteVendor(singleRoute)"
+              *ngIf="(group !=3)"><span *ngIf="singleRoute?.vendor">Change Vendor</span><span *ngIf="!singleRoute?.vendor">Publish to vendor</span></button>
+            <button class="btn btn-primary mr-3" (click)="assingCab(singleRoute)"
+              *ngIf="(singleRoute?.vendor && group != 2)">
+              <span *ngIf="!singleRoute?.cab">Assign Cab</span>
+              <span *ngIf="singleRoute?.cab">Change Cab</span>
+            </button>
+            <i class="zmdi zmdi-more-vert more" [matMenuTriggerFor]="menu"></i>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="editRoute(singleRoute)" *ngIf="group != 3">Edit Route</button>
+              <button mat-menu-item (click)="deleteRoute(singleRoute)" *ngIf="group != 3">Delete Route</button>
+              <!-- <button mat-menu-item (click)="assingCab(singleRoute)" *ngIf="group != 2 ">Assign Cab</button> -->
+              <!-- <button mat-menu-item (click)="addEmployee(singleRoute)" *ngIf="group != 3 ">Add Employee</button> -->
+              <!-- <button mat-menu-item (click)="removeEmployee(singleRoute)">Remove Employee</button> -->
+            </mat-menu>
+          </div>
+        </div>
+        <div class="mt-2">
+          <div class="flex-justify-between">
+            <p><b>Cab </b>- <span *ngIf="singleRoute?.cab">{{singleRoute?.cab?.name}}
+                ({{singleRoute?.cab?.cab_number}})</span><span *ngIf="!singleRoute?.cab">Cab is not assigned yet</span>
+            </p>
+            <p>{{singleRoute?.cab?.cab_model}}</p>
+          </div>
+          <div class="flex-justify-between">
+            <p><b>Driver </b>- <span
+                *ngIf="singleRoute?.cab?.assigned_current_driver">{{singleRoute?.cab?.assigned_current_driver?.name}}</span><span
+                *ngIf="!singleRoute?.cab?.assigned_current_driver">Driver is not assigned yet</span></p>
+            <p *ngIf="singleRoute?.cab?.assigned_current_driver">{{singleRoute?.cab?.assigned_current_driver?.phone}}
+            </p>
+          </div>
+        </div>
+        <div class="mt-2">
+          <div class="flex-justify-between">
+            <p><b>Pickup Route </b>- {{singleRoute?.pickupRoute?.pickupTime}}
+            </p>
+          </div>
+          <div class="flex-justify-between">
+            <p><b>Drop Route </b>- {{singleRoute?.dropRoute?.pickupTime}}
+            </p>
+          </div>
+        </div>
+        <!-- <div class="mt-2">
+          <div class="flex-justify-between">
+            <p><b>Drop Route </b>- {{singleRoute?.dropRoute?.pickupTime}} - {{singleRoute?.dropRoute?.dropTime}}</p>
+          </div>
+        </div> -->
+        <div class="cab-tab">
+          <div class="flex-justify">
+            <p>
+              <b class="mb-2">Employees</b>
+            </p>
+            <p (click)="addEmployee(singleRoute)" *ngIf="group != 3 " class="small-text bl">Add
+              Employee</p>
+          </div>
+          <div class="employee-list">
+            <div *ngIf="singleRoute?.employees?.length > 0;else no_employee">
+              <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+                <div class="example-box vendor-card employee-card" *ngFor="let data of singleRoute?.employees" cdkDrag>
+                  <!-- cdkDragDisabled="group == 3" -->
+                  <i class="zmdi zmdi-close-circle close-icon" (click)="removeEmployee(singleRoute,data)"
+                    *ngIf="group != 3"></i>
+                  <div class="flex-justify-between">
+                    <div class="justify-div">
+                      <p (click)="singleEmployee(data)" class="cursor"><b>{{data?.name}}</b></p>
+                      <p class="mt-2">{{data?.employeeDetails?.employee_id}}</p>
+                      <p (click)="moveEmployee(singleRoute,data)" class="small-text bl" style="text-decoration: underline;">Move</p>
+                    </div>
+                    <div class="justify-div">
+                      <p>{{data?.email}}</p>
+                      <p class="mt-2">{{data?.phone}}</p>
+                    </div>
+                    <div class="justify-div">
+                        {{data?.address?.lineOne}}
+                      </div>
+                    <div class="justify-div-short text-right">
+                      <img src="../../../../../assets/Vector.png" class="dot-image" matTooltip="You can drag the employee to change the order"/>
+                    </div>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-template #no_employee>
+              <p class="mt-2">There are no employees</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="vendor-driver">
+          <div>
+            <b>Vendor</b>
+            <div class="vendor-card">
+              <div *ngIf="singleRoute?.vendor">
+                <p (click)="singleVendor(singleRoute?.vendor)" class="cursor">{{singleRoute?.vendor?.name}} </p>
+                <p>{{singleRoute?.vendor?.email}} </p>
+                <p>{{singleRoute?.vendor?.phone}} </p>
+              </div>
+              <div *ngIf="!singleRoute?.vendor">
+                <p>No vendor here</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <b>Company</b>
+            <div class="vendor-card">
+              <div *ngIf="singleRoute?.company">
+                <p (click)="singleCompany(singleRoute?.company)" class="cursor">{{singleRoute?.company?.name}} </p>
+                <p>{{singleRoute?.company?.email}} </p>
+                <p>{{singleRoute?.company?.phone}} </p>
+              </div>
+              <div *ngIf="!singleRoute?.company">
+                <p>No company here</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <b>Days</b>
+            <div class="vendor-card">
+              <div *ngIf="singleRoute?.days">
+                <span *ngFor="let data of singleRoute?.days;let i= index">{{data}}<span
+                    *ngIf="i != singleRoute?.days?.length-1">, </span> </span>
+              </div>
+              <div *ngIf="!singleRoute?.days">
+                <p>No days here</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <b>Shift</b>
+            <div class="vendor-card">
+              <div *ngIf="singleRoute?.shift">
+                <p (click)="singleShift(singleRoute?.shift)" class="cursor">{{singleRoute?.shift?.name}} ({{singleRoute?.shift?.startTime}} - {{singleRoute?.shift?.endTime}}) </p>
+              </div>
+              <div *ngIf="!singleRoute?.shift">
+                <p>No shift here</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

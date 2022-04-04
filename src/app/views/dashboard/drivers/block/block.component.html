@@ -1,0 +1,22 @@
+<h2 mat-dialog-title *ngIf="editData">Add driver into Blacklist</h2>
+<h2 mat-dialog-title *ngIf="!editData">Remove driver from Blacklist</h2>
+<mat-dialog-content>
+  <div>
+      Are you sure?
+  </div>
+  <form *ngIf="(group == 1)" class="mt-3" [formGroup]="form">
+      <mat-form-field class="example-full-width" >
+          <mat-select placeholder="Select Company" formControlName="company" multiple>
+            <input matInput #search class="search-input" placeholder="Search..." />
+            <mat-option *ngFor="let data of allCompanies |filter:search.value" [value]="data?._id">
+              {{data?.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="right-actions">
+  <button mat-button mat-dialog-close>No</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button  (click)="delete(form?.value);">Yes</button>
+</mat-dialog-actions>

@@ -1,0 +1,82 @@
+<!-- 
+<div class="dpadding">
+  <div class="row" *ngIf="allShifts?.length>0">
+    <div *ngFor="let data of allShifts" class="col-md-4 col-sm-6 col-xs-12 margin-b">
+      <div class="card">
+        <div  class="user-name flex-justify-between">
+          <b (click)="singleShift(data)">{{data?.name}}</b>
+          <div>
+            <i class="zmdi zmdi-more-vert" [matMenuTriggerFor]="menu"></i>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="editShift(data)">Edit Shift</button>
+              <button mat-menu-item (click)="deleteShift(data)">Delete Shift</button>
+            </mat-menu>
+          </div>
+        </div>
+        <div>
+         
+          <div>
+            <p *ngIf="data?.company">Company - {{data.company?.name}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="allShifts?.length == 0">There are no vendors</div>
+
+</div> -->
+<div class="main12 dpadding">
+  <div class="row" >
+    <div class="col-md-6">
+      <div class="new">
+        <div class="heading" style="padding:15px 20px;">
+          <!-- <b (click)="singleShift(data)">{{data?.name}}</b> -->
+          <h5>Shifts</h5>
+
+          <div (click)="addShift()">
+            <i class="zmdi zmdi-plus-circle"></i>
+          </div>
+        </div>
+        <div class="chart" *ngIf="allShifts?.length>0">
+          <div *ngFor="let data of allShifts" class="shift-one">
+              <div class="subheading">
+                  <b style="cursor: pointer;" (click)="singleShift(data)">{{data?.name}}</b>
+                  <p style="text-align: right;">{{data.startTime}} - {{data.endTime}}</p>
+                </div>
+                <p *ngIf="data?.company">Company - {{data.company?.name}}</p>
+          </div>
+        </div>
+        <div *ngIf="allShifts?.length==0" class="p-3">
+          <p>There is no shift</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6" *ngIf="user?.group == 2">
+        <div class="new">
+            <div class="heading" style="padding:15px 20px;">
+              <!-- <b (click)="singleShift(data)">{{data?.name}}</b> -->
+              <h5>Zone</h5>
+    
+              <div >
+                <i class="zmdi zmdi-plus-circle" *ngIf="allZones?.length==0" (click)="addZone('add')"></i>
+                <i class="zmdi zmdi-edit" *ngIf="allZones?.length >0" (click)="addZone('edit')"></i>
+              </div>
+            </div>
+            <div class="chart" *ngIf="allZones?.length>0">
+              <div *ngFor="let data of allZones" class="shift-one">
+                  <div class="subheading">
+                      <b style="cursor: pointer;">{{data?.name}}</b>
+                      <p style="text-align: right;">{{data?.amount}}</p>
+                    </div>
+              </div>
+            </div>
+            <div *ngIf="allZones?.length==0" class="p-3">
+              <p>There is no zone</p>
+            </div>
+          </div>
+    </div>
+  </div>
+  <!-- <div class="create-direct" (click)="addShift()">
+    <i class="zmdi zmdi-plus-circle"></i>
+  </div> -->
+</div>

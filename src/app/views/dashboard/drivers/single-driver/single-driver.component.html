@@ -1,0 +1,240 @@
+<div class="header-height">
+  <div class="flex-justify">
+    <h5> <span style="border-bottom: 1px solid #9E9E9E; cursor: pointer;" routerLink="/drivers">Driver</span> &nbsp; > {{singleDriver?.name}} <span class="ml-3 badge badge-danger"
+        *ngIf="((singleDriver?.driverDetails?.blacklistCompany && singleDriver?.driverDetails?.blacklistCompany?.length>0 && group ==1) || (singleDriver?.driverDetails?.blacklistCompany && singleDriver?.driverDetails?.blacklistCompany?.length>0 && group == 2 && singleDriver?.driverDetails?.blacklistCompany.indexOf(user?._id) >0))">Blacklisted</span>
+    </h5>
+    <div>
+      <button (click)="blackList(true)" class="btn btn-danger mr-3"
+        *ngIf="((!singleDriver?.driverDetails?.blacklistCompany || singleDriver?.driverDetails?.blacklistCompany?.length == 0 && group == 1) || ( singleDriver?.driverDetails?.blacklistCompany && singleDriver?.driverDetails?.blacklistCompany?.length>0  && group ==2 && singleDriver?.driverDetails?.blacklistCompany.indexOf(user?._id) == -1))">Add
+        into Black list</button>
+      <button (click)="blackList(false)" class="btn btn-success mr-3"
+        *ngIf="((singleDriver?.driverDetails?.blacklistCompany && singleDriver?.driverDetails?.blacklistCompany?.length>0 && group ==1) || (singleDriver?.driverDetails?.blacklistCompany && singleDriver?.driverDetails?.blacklistCompany?.length>0 && group == 2 && singleDriver?.driverDetails?.blacklistCompany.indexOf(user?._id) >0))"><span
+          *ngIf="group != 1">Remove from</span><span *ngIf="group == 1">Edit</span> Black list</button>
+      <button (click)="documentPreview()" class="btn btn-primary">Document Preview</button>
+    </div>
+  </div>
+</div>
+<div class="dpadding">
+  <p>
+    <!-- {{singleDriver |json}} -->
+  </p>
+  <div class="card">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="flex-justify-between">
+          <b>{{singleDriver?.name}}</b>
+          <div>
+            <i class="zmdi zmdi-more-vert more" [matMenuTriggerFor]="menu" *ngIf="group !=2"></i>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="editDriver(singleDriver)">Edit Driver</button>
+              <button mat-menu-item (click)="deleteDriver(singleDriver)">Delete Driver</button>
+            </mat-menu>
+          </div>
+        </div>
+        <div class="mt-2">
+          <div class="flex-justify-between">
+            <p>{{singleDriver?.email}}</p>
+            <p>{{singleDriver?.name}}</p>
+          </div>
+        </div>
+        <div class="cab-tab">
+          <b class="mb-2">Driver's Document</b>
+          <mat-tab-group>
+            <mat-tab label="License">
+              <div class="tab-content">
+                <div>
+                  <img
+                    [src]="singleDriver?.driverDetails?.license?.image?singleDriver?.driverDetails?.license?.image:'../../../assets/placeholder.jpg'"
+                    class="img-tab" />
+                  <p *ngIf="singleDriver?.driverDetails?.license?.exp_date">
+                    Exp. date - {{singleDriver?.driverDetails?.license?.exp_date | date:'MMM, d, y, hh:mm a'}}
+                  </p>
+                  <p *ngIf="singleDriver?.driverDetails?.license?.image">Status:
+                    {{singleDriver?.driverDetails?.license?.status?singleDriver?.driverDetails?.license?.status:'Verified'}}
+                    <span *ngIf="(singleDriver?.driverDetails?.license?.status=='unverified' && group != 2)"
+                      style="text-decoration:underline;color:blue;margin-left:30px;cursor: pointer;">
+                      <span (click)="verifyDoc('license','verified')">Verify</span>
+                      <span class="ml-3" (click)="verifyDoc('license','rejected')">Reject</span>
+                    </span>
+                  </p>
+                </div>
+                <!-- <div>
+                        <button class="btn btn-primary" (click)="docEdit('rc',singleCab)"><span *ngIf="singleCab?.cab_rc">Update document</span> <span *ngIf="!singleCab?.cab_rc">Add document</span></button>
+                      </div> -->
+              </div>
+            </mat-tab>
+            <mat-tab label="Police verification">
+              <div class="tab-content">
+                <div>
+                  <img
+                    [src]="singleDriver?.driverDetails?.verification?.image?singleDriver?.driverDetails?.verification?.image:'../../../assets/placeholder.jpg'"
+                    class="img-tab" />
+                  <p *ngIf="singleDriver?.driverDetails?.verification?.exp_date">
+                    Exp. date - {{singleDriver?.driverDetails?.verification?.exp_date | date:'MMM, d, y, hh:mm a'}}
+                  </p>
+                  <p *ngIf="singleDriver?.driverDetails?.verification?.image">Status:
+                      {{singleDriver?.driverDetails?.verification?.status?singleDriver?.driverDetails?.verification?.status:'Verified'}}
+                      <span *ngIf="(singleDriver?.driverDetails?.verification?.status=='unverified' && group != 2)"
+                        style="text-decoration:underline;color:blue;margin-left:30px;cursor: pointer;">
+                        <span (click)="verifyDoc('verification','verified')">Verify</span>
+                        <span class="ml-3" (click)="verifyDoc('verification','rejected')">Reject</span>
+                      </span>
+                    </p>
+                </div>
+                <!-- <div>
+                        <button class="btn btn-primary" (click)="docEdit('ins',singleCab)"><span *ngIf="singleCab?.cab_insurance">Update document</span> <span *ngIf="!singleCab?.cab_insurance">Add document</span></button>
+                      </div> -->
+              </div>
+            </mat-tab>
+
+          </mat-tab-group>
+        </div>
+        <!-- <div class="address">
+            <div class="flex-justify">
+                <p>
+                    <b class="mb-2">Payments</b>
+                </p>
+              <p (click)="addPayment(singleDriver)" class="sm-bold cursor" *ngIf="group !=2">Add Payment</p>
+            </div>
+            <div class="table-responsive">
+                <table mat-table [dataSource]="singleDriver?.payments" multiTemplateDataRows
+                class="mat-elevation-z8">
+                
+                <ng-container matColumnDef="trips">
+                  <th mat-header-cell *matHeaderCellDef> Number of Trips </th>
+                  <td mat-cell *matCellDef="let element"> 
+                  <div class="display">
+                      <i class="zmdi zmdi-caret-down"></i>
+                    <p class="ml-3">
+                        {{element?.number_of_trips}}
+                    </p>
+                  </div>  
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="earning">
+                  <th mat-header-cell *matHeaderCellDef> Total Earnings </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.totalEarnings}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="deduction">
+                  <th mat-header-cell *matHeaderCellDef> Total Deductions </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.totalDeductions}} </td>
+                </ng-container>
+                <ng-container matColumnDef="netAmount">
+                  <th mat-header-cell *matHeaderCellDef> Net Amount </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.netAmount}} </td>
+                </ng-container>
+                <ng-container matColumnDef="tds">
+                    <th mat-header-cell *matHeaderCellDef> TDS </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.tds}}% </td>
+                  </ng-container>
+                  <ng-container matColumnDef="total">
+                      <th mat-header-cell *matHeaderCellDef> Total Amount </th>
+                      <td mat-cell *matCellDef="let element"> {{element?.totalAmount}} </td>
+                    </ng-container>
+      
+      
+                <ng-container matColumnDef="expandedDetail">
+                  <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                    <div class="example-element-detail heading-main"
+                      [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                      <div class="expand-padding">
+                       <div class="row">
+                        <div class="col-md-7">
+                          <div class="vendor-card">
+                              <div class="flex-justify-around mb-2">
+                                <div class="first-div"><b>Company</b></div>
+                                <div class="second-div"><b>Trips</b></div>
+                                <div class="third-div"><b>Amount</b></div>
+                              </div>
+                            <div class="flex-justify-around" *ngFor="let data of element?.earnings">
+                              <div class="first-div">
+                                {{data?.company?.name}}
+                              </div>
+                              <div class="second-div">
+                                  {{data?.trips}}
+                              </div>
+                              <div class="third-div">
+                                  {{data?.amount}}
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-5">
+                          <div class="vendor-card">
+                              <div class="flex-justify mb-2">
+                                  <div class="first-div"><b>Deduction For</b></div>
+                                  <div class="second-div"><b>Amount</b></div>
+                                </div>
+                              <div class="flex-justify" *ngFor="let data of element?.deductions">
+                                  <div class="first-div">
+                                    {{data?.deductionFor}}
+                                    </div>
+                                    <div class="second-div">
+                                      {{data?.amount}}
+                                    </div>
+                                </div>
+                          </div>
+                          </div>
+                       </div>
+                      </div>
+                    </div>
+                  </td>
+                </ng-container>
+      
+      
+      
+      
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+                  [class.example-expanded-row]="expandedElement === element"
+                  (click)="expandedElement = expandedElement === element ? null : element">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+              </table>
+            </div>
+          </div> -->
+      </div>
+      <div class="col-md-4">
+        <div class="vendor-driver">
+          <div>
+            <b>Vendor</b>
+            <div class="vendor-card">
+              <div *ngIf="singleDriver?.driverDetails?.vendor; else no_vendor">
+                <p (click)="singleVendor(singleDriver?.driverDetails?.vendor)" class="cursor">
+                  {{singleDriver?.driverDetails?.vendor?.name}}</p>
+                <p>{{singleDriver?.driverDetails?.vendor?.email}}</p>
+                <p>{{singleDriver?.driverDetails?.vendor?.phone}}</p>
+              </div>
+              <ng-template #no_vendor>There are no vendors</ng-template>
+            </div>
+          </div>
+          <div>
+            <b>Assigned Cab</b>
+            <div class="vendor-card">
+              <!-- <div class="text-right">
+                  <i class="zmdi zmdi-more-vert" [matMenuTriggerFor]="menu"></i>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="assignDriver(singleCab,'edit')"
+                      *ngIf="singleCab?.assigned_current_driver">Change Driver</button>
+                    <button mat-menu-item (click)="assignDriver(singleCab,'add')"
+                      *ngIf="!singleCab?.assigned_current_driver">Assign Driver</button>
+                  </mat-menu>
+                </div> -->
+              <div *ngIf="singleDriver?.driverDetails?.assigned_cab">
+                <p (click)="singleCab(singleDriver?.driverDetails?.assigned_cab)" class="cursor">
+                  {{singleDriver?.driverDetails?.assigned_cab?.name}}</p>
+                <p>{{singleDriver?.driverDetails?.assigned_cab?.cab_model}}</p>
+                <p>{{singleDriver?.driverDetails?.assigned_cab?.cab_number}}</p>
+              </div>
+              <div *ngIf="!singleDriver?.driverDetails?.assigned_cab">
+                <p>Cab is not assigned yet</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

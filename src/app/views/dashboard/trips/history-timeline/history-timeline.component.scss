@@ -1,0 +1,85 @@
+.justigy{
+    padding:10px 0px;
+    border-bottom:1px solid #efefefc4;
+}
+
+.small-text{
+    font-size: 13px;
+}
+
+.step {
+  
+    padding: 10px;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    
+    background-color: cream;
+  }
+  
+  .v-stepper {
+    position: relative;
+    margin-right: 15px;
+  /*   visibility: visible; */
+  }
+  
+  
+  /* regular step */
+  .step .circle {
+    background-color: white;
+    border: 2px solid gray;
+    border-radius: 100%;
+    width: 24px;    /* +6 for border */
+    height: 24px;
+    display: inline-block;
+  }
+  
+  .step .line {
+      top: 23px;
+    left: 11px;
+  /*   height: 120px; */
+    height: 100%;
+      
+      position: absolute;
+      border-left: 2px solid gray;
+  }
+  
+  .step.completed .circle {
+    visibility: visible;
+    background-color: rgb(6,150,215);
+    border-color: rgb(6,150,215);
+  }
+  
+  .step.completed .line {
+    border-left: 3px solid rgb(6,150,215);
+  }
+  
+  .step.active .circle {
+  visibility: visible;
+    border-color: rgb(6,150,215);
+  }
+  
+  .step.empty .circle {
+      visibility: hidden;
+  }
+  
+  .step.empty .line {
+  /*     visibility: hidden; */
+  /*   height: 150%; */
+    top: 0;
+    height: 150%;
+  }
+
+  .last-child{
+    border-left: 2px solid white;
+    z-index: -1; /* behind the circle to completely hide */
+  }
+
+
+  .tick-img{
+    position: relative;
+    top: -3px;
+    right: -1px;
+    width: 18px;
+  }
