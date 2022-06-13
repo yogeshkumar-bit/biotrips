@@ -16,6 +16,15 @@ import { reducers } from './core/store/reducers';
 import { StoreModule } from '@ngrx/store';
 import { DateRangePickerModule } from '@syncfusion/ej2-angular-calendars';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = {
+	url: environment.API_URL, // socket server url;
+	options: {
+		transports: ['polling']
+	}
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,8 +42,8 @@ import { DateRangePickerModule } from '@syncfusion/ej2-angular-calendars';
     MaterialModule,
     AppRoutingModule,
     DateRangePickerModule,
-    StoreModule.forRoot(reducers , {})
-
+    StoreModule.forRoot(reducers , {}),
+    SocketIoModule.forRoot(config)
 
   ],
   providers: [

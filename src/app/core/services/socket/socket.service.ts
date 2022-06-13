@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import * as io from 'socket.io-client';
+// import * as io from 'socket.io-client';
+import { environment } from '../../../../environments/environment';
+import { Socket } from 'ngx-socket-io';  
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,18 +13,29 @@ export class SocketService {
 
 
   public initSocket() {
-    let url = 'https://biotrips.in';
-    // let url = 'http://localhost:7000';
-    this.socket = io.connect(url, {
-      transports: ['polling']
-    });
+    // let url = 'https://biotrips.in';
+    let url = environment.API_URL;
+    // this.socket = io.connect(url, {
+    //   transports: ['polling']
+    // });
+    this.socket = new Socket({
+      url: url, // socket server url;
+      options: {
+        transports: ['polling']
+      }});
   }
 
   public socketForOne(id) {
-    this.socket = io.connect('http://api.biotrips.app', {
-      query: { _id: id },
-      transports: ['polling']
-    });
+    // this.socket = io.connect('http://api.biotrips.app', {
+    //   query: { _id: id },
+    //   transports: ['polling']
+    // });
+    this.socket = new Socket({
+      url: environment.API_URL, // socket server url;
+      options: {
+        query: { _id: id },
+        transports: ['polling']
+      }});
   }
 
   public end(){
