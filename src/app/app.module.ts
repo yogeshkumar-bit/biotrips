@@ -16,8 +16,6 @@ import { reducers } from './core/store/reducers';
 import { StoreModule } from '@ngrx/store';
 import { DateRangePickerModule } from '@syncfusion/ej2-angular-calendars';
 
-import {HashLocationStrategy, Location, LocationStrategy} from '@angular/common';
-
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 const config: SocketIoConfig = {
@@ -53,10 +51,6 @@ const config: SocketIoConfig = {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
       multi: true
-    },
-    {
-      provide:LocationStrategy,
-      useClass: HashLocationStrategy
     }
     // { provide: LOCALE_ID, useValue: 'fr' }
   ],
