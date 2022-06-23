@@ -230,8 +230,8 @@ import { UpdateLogoComponent } from './vendors/update-logo/update-logo.component
     EditPaymentComponent,
     MoveEmployeeComponent,
     EditPaymentComponent,
-   DeletePaymentComponent,
-     UpdateLogoComponent
+    DeletePaymentComponent,
+    UpdateLogoComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
