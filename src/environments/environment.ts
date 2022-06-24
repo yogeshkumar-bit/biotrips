@@ -9,6 +9,7 @@ export const environment = {
   // API_URL: 'http://13.59.12.157:7000/api',
   //  API_URL: 'http://localhost:7000/api',
   API_URL: 'https://dev.api.biotrips.in/api/',
+  SOCKET_URL: 'https://dev-api.biotrips.in/api',
   firebaseConfig: {
     apiKey: "AIzaSyBqKT7NzcuLHNs59_b8j30lKUtRJuV6BQ0", 
     authDomain: "biotrips2.firebaseapp.com",

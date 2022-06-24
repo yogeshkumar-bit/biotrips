@@ -14,7 +14,7 @@ export class SocketService {
 
   public initSocket() {
     // let url = 'https://biotrips.in';
-    let url = environment.API_URL;
+    let url = environment.SOCKET_URL;
     // this.socket = io.connect(url, {
     //   transports: ['polling']
     // });
@@ -31,7 +31,7 @@ export class SocketService {
     //   transports: ['polling']
     // });
     this.socket = new Socket({
-      url: environment.API_URL, // socket server url;
+      url: environment.SOCKET_URL, // socket server url;
       options: {
         query: { _id: id },
         transports: ['polling']
