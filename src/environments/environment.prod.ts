@@ -3,7 +3,7 @@ export const environment = {
   // API_URL: 'https://biotrips.in/api',
     // API_URL: 'http://13.59.12.157:7000/api',
     // API_URL: 'https://biotripsapi.kilobytetech.com/api',
-    API_URL: 'https://dev.api.biotrips.in/api',
+    API_URL: 'https://dev-api.biotrips.in/api',
     SOCKET_URL: 'https://dev-api.biotrips.in/api',
   // API_URL: 'http://localhost:7000/api',
   
